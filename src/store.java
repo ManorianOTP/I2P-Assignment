@@ -38,11 +38,44 @@ import java.util.Scanner;
 
 public class store
 {
+	static int userInput;
 	public static void main(String[] args)
 	{
-
 		Scanner input = new Scanner(System.in);
+		DisplayMenu();
+		MenuChoice(input);
+
+
+		while(userInput !=5)
+		{
+			if (userInput >5 || userInput <1) {
+				System.out.println("This doesn't appear to be a valid option...!");
+				break;
+			}
+			if (userInput == 1)	{
+				AddItem();
+			}
+			else if (userInput == 2) {
+				UpdateItemQuantity();
+			}
+			else if (userInput == 3) {
+				RemoveItem();
+			}	
+			else {
+				ViewDailyTransactionReport();
+			}
+			MenuChoice(input);
+		}
 		
+	System.out.println("\n\nThanks for using this program...!");
+	}
+
+	private static void MenuChoice(Scanner input) {
+		System.out.print("Enter a choice and Press ENTER to continue[1-5]: ");
+		userInput = input.nextInt();
+	}
+
+	private static void DisplayMenu() {
 		System.out.println("I N V E N T O R Y    M A N A G E M E N T    S Y S T E M");
 		System.out.println("-----------------------------------------------");
 		System.out.println("1. ADD NEW ITEM");
@@ -50,34 +83,22 @@ public class store
 		System.out.println("3. REMOVE ITEM");
 		System.out.println("4. VIEW DAILY TRANSACTION REPORT");
 		System.out.println("---------------------------------");
-		System.out.println("5. Exit");
-		
-		
-		System.out.print("\n Enter a choice and Press ENTER to continue[1-5]:");
-		int userinput = input.nextInt();
-			
+		System.out.println("5. Exit\n");
+	}
 
-		while(userinput !=5)
-		{
-			if (userinput>5 || userinput<1) {
-				System.out.println("This doesn't appear to be a valid option...!");
-				break;
-			}
-			if (userinput == 1)	{
-				System.out.print("\n New Item Added");
-			}
-			else if (userinput == 2) {		
-				System.out.print("\n Item quantity updated");
-			}
-			else if (userinput == 3) {
-				System.out.print("\n Item Removed");
-			}	
-			else {
-				System.out.print("\n Report printed");
-			}
-			userinput = input.nextInt();
-		}
-		
-	System.out.println("\n\n Thanks for using this program...!");
+	private static void AddItem() {
+		System.out.println("New Item Added\n");
+	}
+
+	private static void UpdateItemQuantity() {
+		System.out.println("Item quantity updated\n");
+	}
+
+	private static void RemoveItem() {
+		System.out.println("Item Removed\n");
+	}
+
+	private static void ViewDailyTransactionReport() {
+		System.out.println("Report printed\n");
 	}
 }
