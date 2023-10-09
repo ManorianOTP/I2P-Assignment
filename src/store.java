@@ -34,12 +34,11 @@
  */
 
 
-import java.io.*;
 import java.util.Scanner;
 
 public class store
 {
-	public static void main(String args[])
+	public static void main(String[] args)
 	{
 
 		Scanner input = new Scanner(System.in);
@@ -66,21 +65,17 @@ public class store
 			}
 			if (userinput == 1)	{
 				System.out.print("\n New Item Added");
-				break;
 			}
 			else if (userinput == 2) {		
 				System.out.print("\n Item quantity updated");
-				break;
 			}
 			else if (userinput == 3) {
 				System.out.print("\n Item Removed");
-				break;
 			}	
-			else if (userinput == 4) {
+			else {
 				System.out.print("\n Report printed");
-				break;
-			}	
-			
+			}
+			userinput = input.nextInt();
 		}
 		
 	System.out.println("\n\n Thanks for using this program...!");
