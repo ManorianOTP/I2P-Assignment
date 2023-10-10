@@ -39,40 +39,29 @@ import java.util.Scanner;
 public class store
 {
 	static int userInput;
+	static boolean sessionActive = true;
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
 		DisplayMenu();
-		MenuChoice(input);
 
-
-		while(userInput !=5)
-		{
-			if (userInput >5 || userInput <1) {
-				System.out.println("This doesn't appear to be a valid option...!");
-				break;
-			}
-			if (userInput == 1)	{
-				AddItem();
-			}
-			else if (userInput == 2) {
-				UpdateItemQuantity();
-			}
-			else if (userInput == 3) {
-				RemoveItem();
-			}	
-			else {
-				ViewDailyTransactionReport();
-			}
-			MenuChoice(input);
+		while(sessionActive) {
+			MenuInputChoice(input);
 		}
-		
-	System.out.println("\n\nThanks for using this program...!");
+		System.out.println("\n\nThanks for using this program...!");
 	}
 
-	private static void MenuChoice(Scanner input) {
+	private static void MenuInputChoice(Scanner input) {
 		System.out.print("Enter a choice and Press ENTER to continue[1-5]: ");
 		userInput = input.nextInt();
+		switch (userInput) {
+			case 1 -> AddItem();
+			case 2 -> UpdateItemQuantity();
+			case 3 -> RemoveItem();
+			case 4 -> ViewDailyTransactionReport();
+			case 5 -> sessionActive = false;
+			default -> System.out.println("Unexpected error occurred...!");
+		}
 	}
 
 	private static void DisplayMenu() {
