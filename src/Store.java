@@ -1,12 +1,21 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
-public class store
+public class Store
 {
-	static int userInput;
 	static boolean sessionActive = true;
+	// https://www.w3schools.com/java/java_files_read.asp
+	static File itemsFile = new File("TextFiles/items.txt");
+	static File transactionsFile = new File("TextFiles/transactions.txt");
 
 	public static void main(String[] args)
 	{
+		List<CSV> items = InventoryRead(itemsFile, false);
+		List<CSV> transactions = InventoryRead(transactionsFile, true);
 		Scanner input = new Scanner(System.in);
 		DisplayMenu();
 
@@ -18,6 +27,7 @@ public class store
 
 	private static void MenuInputChoice(Scanner input) {
 		System.out.print("Enter a choice and Press ENTER to continue[1-5]: ");
+		int userInput = -1;
 		try {
 			userInput = input.nextInt();
 		} catch (Exception e) {
@@ -59,5 +69,23 @@ public class store
 
 	private static void ViewDailyTransactionReport() {
 		System.out.println("Report printed\n");
+	}
+
+	private static List<CSV> InventoryRead(File file, Boolean transaction) {
+		List<CSV> result = new ArrayList<>();
+
+		try {
+			Scanner myReader = new Scanner(file);
+
+			while (myReader.hasNextLine()) {
+				String row = myReader.nextLine();
+				// https://stackoverflow.com/questions/10631715/how-to-split-a-comma-separated-string
+				List<String> parameterFileRow = Arrays.asList(row.split(","));
+				result.add(new CSV(parameterFileRow, transaction));
+			}
+		} catch (FileNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+		return result;
 	}
 }
