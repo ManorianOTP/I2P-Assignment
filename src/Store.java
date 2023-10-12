@@ -10,11 +10,11 @@ public class Store
 	static boolean sessionActive = true;
 	static File itemsFile = new File("TextFiles/items.txt");
 	static File transactionsFile = new File("TextFiles/transactions.txt");
+	static List<CSV> items = CSVRead(itemsFile);
+	static List<CSV> transactions = CSVRead(transactionsFile);
 
 	public static void main(String[] args)
 	{
-		List<CSV> items = CSVRead(itemsFile);
-		List<CSV> transactions = CSVRead(transactionsFile);
 		Scanner input = new Scanner(System.in);
 		DisplayMenu();
 
@@ -38,7 +38,8 @@ public class Store
 			case 2 -> UpdateItemQuantity();
 			case 3 -> RemoveItem();
 			case 4 -> ViewDailyTransactionReport();
-			case 5 -> sessionActive = false;
+			case 5 -> ViewItems();
+			case 6 -> sessionActive = false;
 			default -> System.out.println("Unexpected error occurred, please enter an integer!");
 		}
 	}
@@ -50,8 +51,9 @@ public class Store
 		System.out.println("2. UPDATE QUANTITY OF EXISTING ITEM");
 		System.out.println("3. REMOVE ITEM");
 		System.out.println("4. VIEW DAILY TRANSACTION REPORT");
+		System.out.println("5. VIEW ITEMS IN INVENTORY");
 		System.out.println("---------------------------------");
-		System.out.println("5. Exit\n");
+		System.out.println("6. Exit\n");
 	}
 
 	private static void AddItem() {
@@ -67,7 +69,17 @@ public class Store
 	}
 
 	private static void ViewDailyTransactionReport() {
-		System.out.println("Report printed\n");
+		transactions = CSVRead(transactionsFile);
+		for (CSV csv : transactions) {
+			System.out.println(csv);
+		}
+	}
+
+	private static void ViewItems() {
+		items = CSVRead(itemsFile);
+		for (CSV csv : items) {
+			System.out.println(csv);
+		}
 	}
 
 	private static List<CSV> CSVRead(File file) {

@@ -30,4 +30,19 @@ public class CSV {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "id=%d, description='%s', qtySold=%d, amount=%d, stockRemaining=%d, transactionType='%s', unitPrice=%s, qtyInStock=%d, totalPrice=%s".formatted(
+                id,
+                description,
+                qtySold,
+                amount,
+                stockRemaining,
+                transactionType,
+                unitPrice,
+                qtyInStock,
+                totalPrice);
+    }
+
 }
