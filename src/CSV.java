@@ -1,32 +1,33 @@
 import java.util.List;
 
 public class CSV {
-    // id,description, qtySold, amount, stockRemaining, transactionType
     int id;
     String description;
     int qtySold;
     int amount;
-    int  stockRemaining;
+    int stockRemaining;
     String transactionType;
     double unitPrice;
     int qtyInStock;
     double totalPrice;
 
-    CSV(List<String> parameterFileRow, Boolean transaction) {
-        if (transaction) {
-            this.id = Integer.parseInt(parameterFileRow.get(0));
-            this.description = parameterFileRow.get(1);
-            this.qtySold = Integer.parseInt(parameterFileRow.get(2));
-            this.amount = Integer.parseInt(parameterFileRow.get(3));
-            this.stockRemaining = Integer.parseInt(parameterFileRow.get(4));
-            this.transactionType = parameterFileRow.get(5);
-        } else {
-            this.id = Integer.parseInt(parameterFileRow.get(0));
-            this.description = parameterFileRow.get(1);
-            this.unitPrice = Double.parseDouble(parameterFileRow.get(2));
-            this.qtyInStock = Integer.parseInt(parameterFileRow.get(3));
-            this.totalPrice = Double.parseDouble(parameterFileRow.get(4));
-        }
+    public CSV(List<String> parameterFileRow, List<String> headers) {
+        for (int i = 0; i < headers.size(); i++) {
+            String header = headers.get(i);
+            String value = parameterFileRow.get(i);
 
+            switch (header) {
+                case "id" -> this.id = Integer.parseInt(value);
+                case "description" -> this.description = value;
+                case "qtySold" -> this.qtySold = Integer.parseInt(value);
+                case "amount" -> this.amount = Integer.parseInt(value);
+                case "stockRemaining" -> this.stockRemaining = Integer.parseInt(value);
+                case "transactionType" -> this.transactionType = value;
+                case "unitPrice" -> this.unitPrice = Double.parseDouble(value);
+                case "qtyInStock" -> this.qtyInStock = Integer.parseInt(value);
+                case "totalPrice" -> this.totalPrice = Double.parseDouble(value);
+                default -> throw new IllegalArgumentException("Unexpected header: " + header);
+            }
+        }
     }
 }

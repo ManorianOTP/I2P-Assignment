@@ -8,14 +8,13 @@ import java.util.Scanner;
 public class Store
 {
 	static boolean sessionActive = true;
-	// https://www.w3schools.com/java/java_files_read.asp
 	static File itemsFile = new File("TextFiles/items.txt");
 	static File transactionsFile = new File("TextFiles/transactions.txt");
 
 	public static void main(String[] args)
 	{
-		List<CSV> items = InventoryRead(itemsFile, false);
-		List<CSV> transactions = InventoryRead(transactionsFile, true);
+		List<CSV> items = CSVRead(itemsFile);
+		List<CSV> transactions = CSVRead(transactionsFile);
 		Scanner input = new Scanner(System.in);
 		DisplayMenu();
 
@@ -71,17 +70,17 @@ public class Store
 		System.out.println("Report printed\n");
 	}
 
-	private static List<CSV> InventoryRead(File file, Boolean transaction) {
+	private static List<CSV> CSVRead(File file) {
 		List<CSV> result = new ArrayList<>();
 
 		try {
 			Scanner myReader = new Scanner(file);
+			List<String> headers = Arrays.asList(myReader.nextLine().split(","));
 
 			while (myReader.hasNextLine()) {
 				String row = myReader.nextLine();
-				// https://stackoverflow.com/questions/10631715/how-to-split-a-comma-separated-string
 				List<String> parameterFileRow = Arrays.asList(row.split(","));
-				result.add(new CSV(parameterFileRow, transaction));
+				result.add(new CSV(parameterFileRow, headers));
 			}
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
