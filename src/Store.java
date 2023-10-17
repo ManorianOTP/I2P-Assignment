@@ -13,19 +13,22 @@ public class Store
 	static List<CSV> items = CSVRead(itemsFile);
 	static List<CSV> transactions = CSVRead(transactionsFile);
 
+	// open the menu and start taking user input until they put a choice that cancels the session
 	public static void main(String[] args)
 	{
 		Scanner input = new Scanner(System.in);
 		DisplayMenu();
 
-		while(sessionActive) {
+		while (sessionActive) {
 			MenuInputChoice(input);
 		}
 		System.out.println("\n\nThanks for using this program...!");
 	}
 
+	// Keep taking user input from the console, as long as it's an integer do the appropriate menu function,
+	// otherwise consume the invalid input and provide an error output
 	private static void MenuInputChoice(Scanner input) {
-		System.out.print("Enter a choice and Press ENTER to continue[1-5]: ");
+		System.out.print("Enter a choice and Press ENTER to continue[1-6]: ");
 		int userInput = -1;
 		try {
 			userInput = input.nextInt();
@@ -44,6 +47,7 @@ public class Store
 		}
 	}
 
+	// The string's that get outputted to the menu to explain what your options are
 	private static void DisplayMenu() {
 		System.out.println("I N V E N T O R Y    M A N A G E M E N T    S Y S T E M");
 		System.out.println("--------------------------------------------------------");
@@ -56,18 +60,22 @@ public class Store
 		System.out.println("6. Exit\n");
 	}
 
+	// Will add an item, currently has placeholder text
 	private static void AddItem() {
 		System.out.println("New Item Added\n");
 	}
 
+	// Will update an item quantity, currently has placeholder text
 	private static void UpdateItemQuantity() {
 		System.out.println("Item quantity updated\n");
 	}
 
+	// Will remove an item, currently has placeholder text
 	private static void RemoveItem() {
 		System.out.println("Item Removed\n");
 	}
 
+	// Outputs the transactions list by reading the transactions file, then printing each row to the console
 	private static void ViewDailyTransactionReport() {
 		transactions = CSVRead(transactionsFile);
 		for (CSV csv : transactions) {
@@ -75,6 +83,7 @@ public class Store
 		}
 	}
 
+	// Outputs the items list by reading the items file, then printing each row to the console
 	private static void ViewItems() {
 		items = CSVRead(itemsFile);
 		for (CSV csv : items) {
@@ -82,6 +91,9 @@ public class Store
 		}
 	}
 
+	// Tries to read the contents of the provided file, if it can it takes the first row to be the headers, split's them
+	// by comma, and stores them. Then for every following row it splits them appropriately, and creates a CSV object
+	// based off the header row and the values found in the current row, which it adds to a list
 	private static List<CSV> CSVRead(File file) {
 		List<CSV> result = new ArrayList<>();
 
