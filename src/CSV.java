@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 public class CSV {
     // using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
     // properties into one Map
-    Integer id;
+    String id;
     String description;
     Integer qtySold;
     Integer amount;
@@ -42,7 +42,7 @@ public class CSV {
             // then assign the associated value to the relevant property, and store that it's been defined into
             // definedFields
             switch (header) {
-                case "id" -> { id = Integer.parseInt(value); definedFields.add("id"); }
+                case "id" -> { id = value; definedFields.add("id"); }
                 case "description" -> { description = value; definedFields.add("description"); }
                 case "qtySold" -> { qtySold = Integer.parseInt(value); definedFields.add("qtySold"); }
                 case "amount" -> { amount = Integer.parseInt(value); definedFields.add("amount"); }
@@ -61,11 +61,22 @@ public class CSV {
         // Override the default toString() method for an object, so rather than returning its memory address, it returns
         // a string representation of its fields
         // from the list of all variables that were defined in the setup of the instance of CSV
-        // map in sequence the list of field names to a string in the format String1=String2
+        // map in sequence the list of field names to a string in the format "String1=String2"
         // where String1 is the current field name being operated on, and String2 is the associated value got from the
         // fieldSuppliers map. Once the Stream has been fully consumed, each string collected gets joined with a ", "
         return definedFields.stream()
                 .map(fieldName -> String.format("%s=%s", fieldName, fieldSuppliers.get(fieldName).get()))
                 .collect(Collectors.joining(", "));
+    }
+
+    public String toCSVFileOutput() {
+        // Returns a string representation of its fields
+        // from the list of all variables that were defined in the setup of the instance of CSV
+        // map in sequence the list of field names to a string in the format "Value1,"
+        // where Value1 is the current value got from the fieldSuppliers map,
+        // each value collected gets joined with a ","
+        return definedFields.stream()
+                .map(fieldName -> String.format("%s", fieldSuppliers.get(fieldName).get()))
+                .collect(Collectors.joining(","));
     }
 }
