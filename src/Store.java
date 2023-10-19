@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Store
 {
@@ -141,7 +142,7 @@ public class Store
 		System.out.println("Please input a value");
 		String value = input.nextLine();
 		for (CSV csv: csvs) {
-			if (csv.GetPropertyByName(propertyName).toString().equals(value)) {
+			if (csv.GetPropertyByName(propertyName).toString().matches((".*" + Pattern.quote(value) + ".*"))) {
 				System.out.println(csv.GetPropertyByName(propertyName));
 			}
 
