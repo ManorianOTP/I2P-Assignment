@@ -2,9 +2,28 @@ import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a structured representation of an entry in a CSV (Comma-Separated Values) file.
+ * This class captures various data attributes typically found in CSV files.
+ * Each attribute corresponds to a potential column in the CSV file.
+ *
+ * <p>This class also provides functionality to convert a row in a CSV file
+ * to an object instance and vice versa. It uses dynamic mapping to achieve
+ * this by associating field names with their respective values using a map
+ * of suppliers. This makes the class flexible in handling various CSV formats
+ * and structures.</p>
+ *
+ * <p>Note: The class is designed to handle CSV rows with string representations of
+ * numerical values and does not validate the format or type of CSV data.
+ * For instance, if a field expected to be an integer receives a non-numeric string,
+ * a {@code NumberFormatException} will be thrown.</p>
+ */
 public class CSV {
-    // using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
-    // properties into one Map
+    /**
+     * The list of potential properties that can be declared in an instance of the CSV class.
+     * Using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
+     * properties into one Map
+     */
     String id;
     String description;
     Integer qtySold;
@@ -14,12 +33,19 @@ public class CSV {
     Double unitPrice;
     Integer qtyInStock;
     Double totalPrice;
+    String date;
 
-    // LinkedHashSet is highly performant but maintains its output order for printing
+    /**
+     * A set of fields that were defined for this CSV entry.
+     * Using a LinkedHashSet to maintain the order of insertion for predictable iteration.
+     */
     Set<String> definedFields = new LinkedHashSet<>();
 
-    // A Map that links the string's of potential header values to a supplier object, which acts like a Getter in this
-    // context without requiring the boilerplate normally associated with a Getter
+    /**
+     * A map associating each field name with a supplier.
+     * The supplier effectively acts as a getter for the field, allowing dynamic retrieval
+     * of field values based on the field's name.
+     */
     Map<String, Supplier<Object>> fieldSuppliers = Map.of(
             "id", () -> id,
             "description", () -> description,
@@ -29,18 +55,29 @@ public class CSV {
             "transactionType", () -> transactionType,
             "unitPrice", () -> unitPrice,
             "qtyInStock", () -> qtyInStock,
-            "totalPrice", () -> totalPrice
+            "totalPrice", () -> totalPrice,
+            "date", () -> date
     );
 
-    // Constructor that takes in an input of the list of parameters found in the file, and the header row associated
+    /**
+     * Constructs a CSV object using provided row parameters and associated headers.
+     *
+     * <p>This constructor iterates over each header, identifies the corresponding value from the
+     * input row parameters, assigns this value to the relevant property of the object, and marks
+     * the property as defined in {@code definedFields}. If the header is not recognized, it throws
+     * an {@code IllegalArgumentException}.</p>
+     *
+     * @param parameterFileRow The list of values associated with a particular row in a CSV file.
+     * @param headers          The list of headers corresponding to the order of values in
+     *                         {@code parameterFileRow}.
+     *
+     * @throws IllegalArgumentException If an unexpected header is encountered.
+     */
     public CSV(List<String> parameterFileRow, List<String> headers) {
-        // for each header, get the headers string and the associated value
         for (int i = 0; i < headers.size(); i++) {
             String header = headers.get(i);
             String value = parameterFileRow.get(i);
 
-            // then assign the associated value to the relevant property, and store that it's been defined into
-            // definedFields
             switch (header) {
                 case "id" -> { id = value; definedFields.add("id"); }
                 case "description" -> { description = value; definedFields.add("description"); }
@@ -51,30 +88,60 @@ public class CSV {
                 case "unitPrice" -> { unitPrice = Double.parseDouble(value); definedFields.add("unitPrice"); }
                 case "qtyInStock" -> { qtyInStock = Integer.parseInt(value); definedFields.add("qtyInStock"); }
                 case "totalPrice" -> { totalPrice = Double.parseDouble(value); definedFields.add("totalPrice"); }
+                case "date" -> { date = value; definedFields.add("date"); }
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
         }
     }
 
+    /**
+     * Retrieves the value of a specified property using the {@code fieldSuppliers} map.
+     *
+     * <p>This method uses the given property name to fetch the corresponding value
+     * through the map of field suppliers. If the property name does not exist in the map,
+     * it will return {@code null}.</p>
+     *
+     * @param propertyName The name of the property whose value needs to be retrieved.
+     * @return The value of the specified property, or {@code null} if the property does not exist.
+     */
+    public Object GetPropertyByName(String propertyName) {
+        return fieldSuppliers.get(propertyName).get();
+    }
+
+    /**
+     * Provides a custom string representation of the CSV object.
+     * <p>
+     * For each field that was defined during the CSV object instantiation,
+     * constructs a string in the format "fieldName=fieldValue".
+     * These individual strings are then concatenated using a ", " delimiter.
+     * </p>
+     *
+     * @return A string representation of the CSV object.
+     *         For instance, if "id" and "description" were defined fields
+     *         with values "12345" and "item1" respectively,
+     *         this method would return "id=12345, description=item1".
+     */
     @Override
     public String toString() {
-        // Override the default toString() method for an object, so rather than returning its memory address, it returns
-        // a string representation of its fields
-        // from the list of all variables that were defined in the setup of the instance of CSV
-        // map in sequence the list of field names to a string in the format "String1=String2"
-        // where String1 is the current field name being operated on, and String2 is the associated value got from the
-        // fieldSuppliers map. Once the Stream has been fully consumed, each string collected gets joined with a ", "
         return definedFields.stream()
                 .map(fieldName -> String.format("%s=%s", fieldName, fieldSuppliers.get(fieldName).get()))
                 .collect(Collectors.joining(", "));
     }
 
+    /**
+     * Produces a CSV-formatted string representation of the object's defined fields.
+     * <p>
+     * Iterates over each field that was defined during the CSV object instantiation and
+     * maps it to its corresponding value. These values are then concatenated using a ","
+     * delimiter, constructing a string suitable for CSV file output.
+     * </p>
+     *
+     * @return A CSV-formatted string representation of the CSV object's defined fields.
+     *         For instance, if "id" and "description" were defined fields
+     *         with values "12345" and "item1" respectively,
+     *         this method would return "12345,item1".
+     */
     public String toCSVFileOutput() {
-        // Returns a string representation of its fields
-        // from the list of all variables that were defined in the setup of the instance of CSV
-        // map in sequence the list of field names to a string in the format "Value1,"
-        // where Value1 is the current value got from the fieldSuppliers map,
-        // each value collected gets joined with a ","
         return definedFields.stream()
                 .map(fieldName -> String.format("%s", fieldSuppliers.get(fieldName).get()))
                 .collect(Collectors.joining(","));
