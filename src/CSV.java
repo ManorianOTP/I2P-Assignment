@@ -14,6 +14,7 @@ public class CSV {
     Double unitPrice;
     Integer qtyInStock;
     Double totalPrice;
+    String date;
 
     // LinkedHashSet is highly performant but maintains its output order for printing
     Set<String> definedFields = new LinkedHashSet<>();
@@ -29,7 +30,8 @@ public class CSV {
             "transactionType", () -> transactionType,
             "unitPrice", () -> unitPrice,
             "qtyInStock", () -> qtyInStock,
-            "totalPrice", () -> totalPrice
+            "totalPrice", () -> totalPrice,
+            "date", () -> date
     );
 
     // Constructor that takes in an input of the list of parameters found in the file, and the header row associated
@@ -51,6 +53,7 @@ public class CSV {
                 case "unitPrice" -> { unitPrice = Double.parseDouble(value); definedFields.add("unitPrice"); }
                 case "qtyInStock" -> { qtyInStock = Integer.parseInt(value); definedFields.add("qtyInStock"); }
                 case "totalPrice" -> { totalPrice = Double.parseDouble(value); definedFields.add("totalPrice"); }
+                case "date" -> { date = value; definedFields.add("date"); }
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
         }
