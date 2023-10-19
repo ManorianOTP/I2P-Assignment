@@ -74,9 +74,17 @@ public class Store
 		String description = input.nextLine();
 
 		System.out.print("Enter unit price: ");
+		while (!input.hasNextDouble()) {
+			System.out.println("That's not a valid unit price. Please enter a number.");
+			input.next(); // Clear the invalid input
+		}
 		double unitPrice = input.nextDouble();
 
 		System.out.print("Enter quantity in stock: ");
+		while (!input.hasNextInt()) {
+			System.out.println("That's not a valid quantity. Please enter an integer.");
+			input.next(); // Clear the invalid input
+		}
 		int qtyInStock = input.nextInt();
 
 		double totalPrice = unitPrice * qtyInStock;
@@ -101,7 +109,8 @@ public class Store
 			try (BufferedWriter bw = new BufferedWriter(new FileWriter(itemsFile, true))) {
 				bw.newLine();  // Add a new line for the new row
 				bw.write(newItem.toCSVFileOutput());  // Write the new row content
-				items = CSVRead(itemsFile);
+				bw.flush(); // Close the writer to make it available for CSVRead due to CSVRead being in the try block
+				items = CSVRead(itemsFile); // read the files only if the prior write has succeeded
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
@@ -137,15 +146,22 @@ public class Store
 	private static void SearchObjectByProperty(List<CSV> csvs) {
 		Scanner input = new Scanner(System.in);
 		// Change this to be out of a preset list of choices, just for testing atm
-		System.out.println("Please input a property name");
+
+		System.out.println("Please input a property name from the following list");
+		System.out.println(csvs.get(0).definedFields);
 		String propertyName = input.nextLine();
+		while (!csvs.get(0).definedFields.contains(propertyName)) {
+			System.out.println("Please input a valid property name from the following list");
+			System.out.println(csvs.get(0).definedFields);
+			propertyName = input.nextLine();
+		}
 		System.out.println("Please input a value");
 		String value = input.nextLine();
 		for (CSV csv: csvs) {
+			// Pattern.quote to treat the user input as not regex, with 0+ wildcards preceding and following
 			if (csv.GetPropertyByName(propertyName).toString().matches((".*" + Pattern.quote(value) + ".*"))) {
 				System.out.println(csv.GetPropertyByName(propertyName));
 			}
-
 		}
 	}
 
