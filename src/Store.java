@@ -27,7 +27,7 @@ public class Store
 	// otherwise consume the invalid input and provide an error output
 	private static void MenuInputChoice() {
 		Scanner input = new Scanner(System.in);
-		System.out.print("Enter a choice and Press ENTER to continue[1-6]: ");
+		System.out.print("Enter a choice and Press ENTER to continue[1-7]: ");
 		int userInput = -1;
 		try {
 			userInput = input.nextInt();
@@ -36,12 +36,13 @@ public class Store
 			input.next();
 		}
 		switch (userInput) {
-			case 1 -> AddItem();
-			case 2 -> UpdateItemQuantity();
-			case 3 -> RemoveItem();
-			case 4 -> ViewDailyTransactionReport();
-			case 5 -> ViewItems();
-			case 6 -> sessionActive = false;
+			case 1 -> SearchObjectByProperty(items);
+			case 2 -> AddItem();
+			case 3 -> UpdateItemQuantity();
+			case 4 -> RemoveItem();
+			case 5 -> ViewDailyTransactionReport();
+			case 6 -> ViewItems();
+			case 7 -> sessionActive = false;
 			default -> System.out.println("Unexpected error occurred, please enter an integer!");
 		}
 	}
@@ -50,13 +51,14 @@ public class Store
 	private static void DisplayMenu() {
 		System.out.println("I N V E N T O R Y    M A N A G E M E N T    S Y S T E M");
 		System.out.println("--------------------------------------------------------");
-		System.out.println("1. ADD NEW ITEM");
-		System.out.println("2. UPDATE QUANTITY OF EXISTING ITEM");
-		System.out.println("3. REMOVE ITEM");
-		System.out.println("4. VIEW DAILY TRANSACTION REPORT");
-		System.out.println("5. VIEW ITEMS IN INVENTORY");
+		System.out.println("1. SEARCH FOR ITEM");
+		System.out.println("2. ADD NEW ITEM");
+		System.out.println("3. UPDATE QUANTITY OF EXISTING ITEM");
+		System.out.println("4. REMOVE ITEM");
+		System.out.println("5. VIEW DAILY TRANSACTION REPORT");
+		System.out.println("6. VIEW ITEMS IN INVENTORY");
 		System.out.println("---------------------------------");
-		System.out.println("6. Exit\n");
+		System.out.println("7. Exit\n");
 	}
 
 	// Generates an ID, requests an input for the appropriate fields, shows the user what they input, and asks for
@@ -95,14 +97,14 @@ public class Store
 
 		if (confirmation.equals("yes") || confirmation.equals("y")) {
 			CSV newItem = new CSV(parameters,headers);
-			try (BufferedWriter bw = new BufferedWriter(new FileWriter(itemsFile, true))) {  // 'true' means we're appending to the file
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(itemsFile, true))) {
 				bw.newLine();  // Add a new line for the new row
 				bw.write(newItem.toCSVFileOutput());  // Write the new row content
+				items = CSVRead(itemsFile);
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 
-			items = CSVRead(itemsFile);
 			System.out.println("New Item Added\n");
 		} else {
 			System.out.println("Item not added.\n");
@@ -124,6 +126,25 @@ public class Store
 		transactions = CSVRead(transactionsFile);
 		for (CSV csv : transactions) {
 			System.out.println(csv);
+		}
+	}
+
+	// Provide a list of CSVs, practically either items.txt or transactions.txt but could be any
+	// Then provide a property you want to search for. This input should be validated against the headers list if
+	// possible, or some other validation prior to this function. Then provide a value to search that property for.
+	// Should then return the indexes for all object's with a property that matches the specified value
+	private static void SearchObjectByProperty(List<CSV> csvs) {
+		Scanner input = new Scanner(System.in);
+		// Change this to be out of a preset list of choices, just for testing atm
+		System.out.println("Please input a property name");
+		String propertyName = input.nextLine();
+		System.out.println("Please input a value");
+		String value = input.nextLine();
+		for (CSV csv: csvs) {
+			if (csv.GetPropertyByName(propertyName).toString().equals(value)) {
+				System.out.println(csv.GetPropertyByName(propertyName));
+			}
+
 		}
 	}
 

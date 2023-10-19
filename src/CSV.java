@@ -56,12 +56,16 @@ public class CSV {
         }
     }
 
+    // When called should take in a property name, and make use of the fieldSuppliers map to get the value out
+    public Object GetPropertyByName(String propertyName) {
+        return fieldSuppliers.get(propertyName).get();
+    }
+
     @Override
     public String toString() {
         // Override the default toString() method for an object, so rather than returning its memory address, it returns
-        // a string representation of its fields
-        // from the list of all variables that were defined in the setup of the instance of CSV
-        // map in sequence the list of field names to a string in the format "String1=String2"
+        // a string representation of its fields from the list of all variables that were defined in the setup of the
+        // instance of CSV. Map in sequence the list of field names to a string in the format "String1=String2"
         // where String1 is the current field name being operated on, and String2 is the associated value got from the
         // fieldSuppliers map. Once the Stream has been fully consumed, each string collected gets joined with a ", "
         return definedFields.stream()
