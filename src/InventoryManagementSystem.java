@@ -32,8 +32,8 @@ import java.util.regex.Pattern;
 public class InventoryManagementSystem
 {
 	static boolean sessionActive = true;
-	static File itemsFile = new File("TextFiles/items.txt");
-	static File transactionsFile = new File("TextFiles/transactions.txt");
+	static File itemsFile = new File("src/TextFiles/items.txt");
+	static File transactionsFile = new File("src/TextFiles/transactions.txt");
 	static List<CSV> items = CSVRead(itemsFile);
 	static List<CSV> transactions = CSVRead(transactionsFile);
 
