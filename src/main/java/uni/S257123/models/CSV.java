@@ -1,3 +1,5 @@
+package uni.S257123.models;
+
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -24,7 +26,7 @@ public class CSV {
      * Using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
      * properties into one Map
      */
-    String id;
+    public String id;
     String description;
     Integer qtySold;
     Integer amount;
@@ -39,7 +41,7 @@ public class CSV {
      * A set of fields that were defined for this CSV entry.
      * Using a LinkedHashSet to maintain the order of insertion for predictable iteration.
      */
-    Set<String> definedFields = new LinkedHashSet<>();
+    public Set<String> definedFields = new LinkedHashSet<>();
 
     /**
      * A map associating each field name with a supplier.

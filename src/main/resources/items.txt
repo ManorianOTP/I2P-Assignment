@@ -7,3 +7,5 @@ id,description,unitPrice,qtyInStock,totalPrice
 00006,item6,4500.0,20,90000.0
 00007,item7,3000.0,15,45000.0
 00008,item8,2500.0,100,250000.0
+00009,test,5.0,6,30.0
+00010,iPhone,1000.0,5,5000.0

@@ -4,26 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Moving some files plus unused interface">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/aws.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/I2P Assignment.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/CSV.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/Interfaces/Storage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/InventoryManagementSystem.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/TextFiles/items.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/TextFiles/transactions.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/items.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/I2P Assignment/transactions.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CSV.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Interfaces/Storage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InventoryManagementSystem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TextFiles/items.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TextFiles/transactions.txt" beforeDir="false" />
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Adding Maven Support">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/database/DatabaseStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/interfaces/UserInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Interfaces/Storage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/InventoryManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/transactions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/transactions.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,15 +30,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JUnit5 Test Class" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Feature/Searching_Files" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -84,9 +80,10 @@
     &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature/Implementing-Interfaces&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/614855621/IdeaProjects/Uni/I2P Assignment&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
@@ -109,6 +106,9 @@
     </key>
     <key name="CreateTestDialog.RecentsKey">
       <recent name="" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="uni.S257123.main" />
     </key>
   </component>
   <component name="RunManager">
@@ -288,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698243005003</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Adding Maven Support">
+      <option name="closed" value="true" />
+      <created>1698325810607</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1698325810607</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -321,7 +329,8 @@
     <MESSAGE value="Using javadoc comments and renaming main file" />
     <MESSAGE value="AWS file update (unrelated)" />
     <MESSAGE value="Moving some files plus unused interface" />
-    <option name="LAST_COMMIT_MESSAGE" value="Moving some files plus unused interface" />
+    <MESSAGE value="Adding Maven Support" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding Maven Support" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
