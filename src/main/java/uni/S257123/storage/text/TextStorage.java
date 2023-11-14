@@ -5,6 +5,9 @@ import uni.S257123.models.CSV;
 import uni.S257123.storage.interfaces.Storage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -15,7 +18,7 @@ public class TextStorage implements Storage {
             "items", itemsFilePath,
             "transactions", transactionsFilePath
     );
-    private HashMap<String, List<CSV>> csvDataMap = new HashMap<>(Map.of(
+    private final HashMap<String, List<CSV>> csvDataMap = new HashMap<>(Map.of(
             "items", ReadContents(itemsFilePath),
             "transactions", ReadContents(transactionsFilePath))
     );
@@ -30,6 +33,23 @@ public class TextStorage implements Storage {
         return csvDataMap.get(target).get(0).definedFields.stream().toList();
     }
 
+    /**
+	 * {@inheritDoc}
+	 * <p>
+	 * The method creates a new {@link CSV} object using the given parameters, and getting the headers
+	 * It then appends this record to the file. Upon successful writing, the file's
+	 * contents are read and stored into the {@link #csvDataMap}.
+	 * </p>
+     * @param parameters At a minimum, should provide:
+     *                   <ol>
+     *                   <li>Item Description</li>
+     *                   <li>Unit Price</li>
+     *                   <li>Quantity in Stock</li>
+     *                   </ol>
+     *                   It is up to the implementation whether providing the total price (calculated) is necessary
+     * @param target the file name for the record to be added, without its file extension
+	 * @throws RuntimeException if an IOException occurs while writing to or reading from the file.
+	 */
     @Override
     public boolean AddRecord(List<String> parameters, String target) {
         List<String> headers = csvDataMap.get(target).get(0).definedFields.stream().toList();
@@ -48,22 +68,112 @@ public class TextStorage implements Storage {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * @param recordInfo index 0: row ID, index 1: property wanted to be edited, index 2: what the value to be edited to
+     *                  is
+     * @throws RuntimeException If either the temp file fails to write, fails to overwrite the main file, or the main
+     * file initially fails to get read
+     */
     @Override
-    public void UpdateRecord() {
-        System.out.println("Item quantity updated\n");
+    public void UpdateRecord(List<String> recordInfo) {
+        List<String> headers = GetHeaders("items");
+
+        int columnToUpdateIndex = -1;
+        for (int i = 0; i < headers.size(); i++) {
+            if (recordInfo.get(1).equals(headers.get(i))) {
+                columnToUpdateIndex = i;
+            }
+        }
+        try (Scanner myReader = new Scanner(new BufferedReader(new FileReader(csvDataSource.get("items"))))) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvDataSource.get("items") + ".tmp"));
+
+            boolean isFirstLine = true;
+            while (myReader.hasNextLine()) {
+                if (!isFirstLine) {
+                    writer.newLine();
+                } else {
+                    isFirstLine = false;
+                }
+                String currentLine = myReader.nextLine();
+                String[] columns = currentLine.split(",");
+
+                if (columns[0].equals(recordInfo.get(0))) {
+                    columns[columnToUpdateIndex] = recordInfo.get(2);
+                }
+                writer.write(String.join(",", columns));
+
+            }
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Files.move(
+                    Paths.get(csvDataSource.get("items") + ".tmp"),
+                    Paths.get(csvDataSource.get("items")),
+                    StandardCopyOption.ATOMIC_MOVE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        csvDataMap.put("items", ReadContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
     }
 
     @Override
-    public void DeleteRecord() {
-        System.out.println("Item deleted updated\n");
+    public void DeleteRecord(String id) {
+        try (Scanner myReader = new Scanner(new BufferedReader(new FileReader(csvDataSource.get("items"))))) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(csvDataSource.get("items") + ".tmp"));
+
+            boolean isFirstLine = true;
+            while (myReader.hasNextLine()) {
+                String currentLine = myReader.nextLine();
+                String[] columns = currentLine.split(",");
+                if (columns[0].equals(id)) {
+                    continue;
+                }
+                if (!isFirstLine) {
+                    writer.newLine();
+                } else {
+                    isFirstLine = false;
+                }
+
+                writer.write(String.join(",", columns));
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            Files.move(
+                    Paths.get(csvDataSource.get("items") + ".tmp"),
+                    Paths.get(csvDataSource.get("items")),
+                    StandardCopyOption.ATOMIC_MOVE);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        csvDataMap.put("items", ReadContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
     }
 
+
+    /**
+	 * {@inheritDoc}
+     * <p>
+ 	 * The method assumes the first row of the file to be the headers. Each header is separated
+ 	 * by a comma. Subsequent rows are interpreted as data, where each value is associated with
+ 	 * a header based on its position. Each row is transformed into a CSV object and
+ 	 * added to the resulting list.
+ 	 * </p>
+     *
+     * @param target the file to be read from, minus any file extensions
+     * @return a list of CSV objects, each representing one row of the file
+	 * @throws RuntimeException if the provided file is not found or other IO issues occur.
+	 */
     @Override
     public List<CSV> ReadContents(String target) {
         List<CSV> result = new ArrayList<>();
 
-        try {
-            Scanner myReader = new Scanner(new File(target));
+        try (Scanner myReader = new Scanner(new BufferedReader(new FileReader(target)))) {
             List<String> headers = Arrays.asList(myReader.nextLine().split(","));
 
             while (myReader.hasNextLine()) {

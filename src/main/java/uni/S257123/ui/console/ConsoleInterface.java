@@ -1,15 +1,24 @@
 package uni.S257123.ui.console;
 
 import org.apache.commons.lang3.tuple.Pair;
+import uni.S257123.main.InventoryManagementSystem;
 import uni.S257123.models.CSV;
 import uni.S257123.ui.interfaces.UserInterface;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
+/**
+ * A console-based user interface for the Inventory Management System. This class
+ * implements the {@code UserInterface} with methods that interact with the user
+ * through the command line.
+ *
+ * <p>All methods assume a console environment for input and output. Invalid inputs
+ * are handled within each method, ensuring that the user is always prompted to enter
+ * correct data as necessary.</p>
+ *
+ * @see UserInterface
+ */
 public class ConsoleInterface implements UserInterface {
     @Override
     public void DisplayMenu() {
@@ -25,6 +34,16 @@ public class ConsoleInterface implements UserInterface {
         System.out.println("7. Exit\n");
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * The available options are defined in {@code InventoryManagementSystem} class.
+     * </p>
+     * @param optionsQuantity the total number of menu options
+     * @return the integer value corresponding to the user's valid menu choice
+     * @throws InputMismatchException if the input provided is not an integer
+     * @see InventoryManagementSystem#MenuOptions(int)
+     */
     @Override
     public int MenuInputChoice(int optionsQuantity) {
         Scanner input = new Scanner(System.in);
@@ -34,7 +53,7 @@ public class ConsoleInterface implements UserInterface {
        while (userInput < 1 || userInput > optionsQuantity) {
            try {
                userInput = input.nextInt();
-           } catch (Exception e) {
+           } catch (InputMismatchException e) {
                input.next(); // consume the invalid input
                System.out.println("Unexpected error occurred, please enter an integer!");
            }
@@ -65,8 +84,12 @@ public class ConsoleInterface implements UserInterface {
 
         double totalPrice = unitPrice * qtyInStock;
 
-//        List<String> parameters = Arrays.asList(String.valueOf(id),description,String.valueOf(unitPrice),String.valueOf(qtyInStock),String.valueOf(totalPrice));
-        List<String> parameters = Arrays.asList(description,String.valueOf(unitPrice),String.valueOf(qtyInStock),String.valueOf(totalPrice));
+        List<String> parameters = Arrays.asList(
+                description,
+                String.valueOf(unitPrice),
+                String.valueOf(qtyInStock),
+                String.valueOf(totalPrice)
+        );
 
         System.out.println("\nItem To Be Added:");
         System.out.println("Description: " + description);
@@ -88,13 +111,52 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public List<String> UpdateRecordInput() {
-        return null;
+    public List<String> UpdateRecordInput(List<CSV> csvs, List<String> headers) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> output = new ArrayList<>();
+
+        String id = GetUserChosenRecord(csvs, scanner);
+        output.add(id);
+
+        Pair<String, String> propertyValue = PropertySearchInput(headers);
+        output.add(propertyValue.getLeft());
+        output.add(propertyValue.getRight());
+
+        return output;
+    }
+
+    /**
+     * Takes in a list of {@link CSV}s, and validates that the user has chosen an id from amongst them.
+     * @param csvs the list of records to be chosen from
+     * @param scanner the scanner object to take user input
+     * @return the index of the record chosen
+     */
+    private String GetUserChosenRecord(List<CSV> csvs, Scanner scanner) {
+        DisplayRecords(csvs);
+        System.out.println("Which record do you want to update? (input the appropriate ID)");
+        boolean validID = false;
+        String id = "";
+        while (!validID){
+            String input = scanner.nextLine();
+            for (CSV csv : csvs) {
+                // if the current csv has an id that matches the input
+                if (csv.id.equals(String.format("%05d", Integer.parseInt(input)))) {
+                    validID = true;
+                    id = String.format("%05d", Integer.parseInt(input));
+                    break;
+                }
+            }
+            if (!validID) {
+                System.out.println("Please input a valid ID: ");
+            }
+        }
+        return id;
     }
 
     @Override
-    public List<String> RemoveRecordInput() {
-        return null;
+    public String DeleteRecordInput(List<CSV> csvs) {
+        Scanner scanner = new Scanner(System.in);
+        return GetUserChosenRecord(csvs, scanner);
     }
 
     @Override
@@ -122,7 +184,6 @@ public class ConsoleInterface implements UserInterface {
         String propertyName = ChooseOption(headers);
 		System.out.println("Please input a value");
 		String value = input.nextLine();
-		System.out.println(headers);
         return Pair.of(propertyName, value);
     }
 
@@ -139,7 +200,7 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public void DisplaySearch(List<CSV> csvs) {
+    public void DisplayRecords(List<CSV> csvs) {
         for (CSV csv: csvs) {
             System.out.println(csv);
         }

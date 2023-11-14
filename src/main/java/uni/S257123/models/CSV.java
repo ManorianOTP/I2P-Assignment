@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Represents a structured representation of an entry in a CSV (Comma-Separated Values) file.
+ * A structured representation of an entry in a CSV (Comma-Separated Values) file.
  * This class captures various data attributes typically found in CSV files.
  * Each attribute corresponds to a potential column in the CSV file.
  *
@@ -99,9 +99,8 @@ public class CSV {
     /**
      * Retrieves the value of a specified property using the {@code fieldSuppliers} map.
      *
-     * <p>This method uses the given property name to fetch the corresponding value
-     * through the map of field suppliers. If the property name does not exist in the map,
-     * it will return {@code null}.</p>
+     * <p> Fetches the corresponding value to the given property name through the map of field suppliers. If the
+     * property name does not exist in the map, it will return {@code null}.</p>
      *
      * @param propertyName The name of the property whose value needs to be retrieved.
      * @return The value of the specified property, or {@code null} if the property does not exist.

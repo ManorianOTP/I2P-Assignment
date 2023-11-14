@@ -23,12 +23,12 @@ public class GraphicalInterface implements UserInterface {
     }
 
     @Override
-    public List<String> UpdateRecordInput() {
+    public List<String> UpdateRecordInput(List<CSV> csvs, List<String> headers) {
         return null;
     }
 
     @Override
-    public List<String> RemoveRecordInput() {
+    public String DeleteRecordInput(List<CSV> csvs) {
         return null;
     }
 
@@ -48,7 +48,7 @@ public class GraphicalInterface implements UserInterface {
     }
 
     @Override
-    public void DisplaySearch(List<CSV> csvs) {
+    public void DisplayRecords(List<CSV> csvs) {
 
     }
 }
