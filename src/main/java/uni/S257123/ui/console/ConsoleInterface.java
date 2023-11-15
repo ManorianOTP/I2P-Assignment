@@ -22,16 +22,19 @@ import java.util.*;
 public class ConsoleInterface implements UserInterface {
     @Override
     public void displayMenu() {
-        System.out.println("I N V E N T O R Y    M A N A G E M E N T    S Y S T E M");
-        System.out.println("--------------------------------------------------------");
-        System.out.println("1. SEARCH");
-        System.out.println("2. ADD NEW ITEM");
-        System.out.println("3. UPDATE QUANTITY OF EXISTING ITEM");
-        System.out.println("4. REMOVE ITEM");
-        System.out.println("5. VIEW TRANSACTIONS");
-        System.out.println("6. VIEW ITEMS IN INVENTORY");
-        System.out.println("---------------------------------");
-        System.out.println("7. Exit\n");
+        System.out.println("""
+        I N V E N T O R Y    M A N A G E M E N T    S Y S T E M
+        --------------------------------------------------------
+        1. SEARCH
+        2. ADD NEW ITEM
+        3. UPDATE QUANTITY OF EXISTING ITEM
+        4. REMOVE ITEM
+        5. VIEW TRANSACTIONS
+        6. VIEW ITEMS IN INVENTORY
+        ---------------------------------
+        7. Exit
+        """);
+
     }
 
     /**

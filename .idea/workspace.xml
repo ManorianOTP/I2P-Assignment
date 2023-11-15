@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Working update file system with appropriate comments almost everywhere">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
-    </list>
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Camel-cased all methods" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -317,7 +314,15 @@
       <option name="project" value="LOCAL" />
       <updated>1699972522442</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Camel-cased all methods">
+      <option name="closed" value="true" />
+      <created>1700047218572</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1700047218572</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -353,7 +358,8 @@
     <MESSAGE value="Adding Maven Support" />
     <MESSAGE value="Implementing interfaces to old state" />
     <MESSAGE value="Working update file system with appropriate comments almost everywhere" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working update file system with appropriate comments almost everywhere" />
+    <MESSAGE value="Camel-cased all methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Camel-cased all methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
