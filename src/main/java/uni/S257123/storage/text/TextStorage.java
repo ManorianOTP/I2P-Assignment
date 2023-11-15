@@ -14,22 +14,28 @@ import java.util.regex.Pattern;
 public class TextStorage implements Storage {
     private final String itemsFilePath = "src/main/resources/items.txt";
     private final String transactionsFilePath = "src/main/resources/transactions.txt";
+    /**
+     * Maps the file names to their associated file path
+     */
     private final Map<String, String> csvDataSource = Map.of(
             "items", itemsFilePath,
             "transactions", transactionsFilePath
     );
+    /**
+     * Maps the file names to the data read into memory from their associated file
+     */
     private final HashMap<String, List<CSV>> csvDataMap = new HashMap<>(Map.of(
-            "items", ReadContents(itemsFilePath),
-            "transactions", ReadContents(transactionsFilePath))
+            "items", readContents(itemsFilePath),
+            "transactions", readContents(transactionsFilePath))
     );
 
     @Override
-    public List<String> GetSources()  {
+    public List<String> getSources()  {
         return new ArrayList<>(csvDataSource.keySet());
     }
 
     @Override
-    public List<String> GetHeaders(String target)  {
+    public List<String> getHeaders(String target)  {
         return csvDataMap.get(target).get(0).definedFields.stream().toList();
     }
 
@@ -51,17 +57,17 @@ public class TextStorage implements Storage {
 	 * @throws RuntimeException if an IOException occurs while writing to or reading from the file.
 	 */
     @Override
-    public boolean AddRecord(List<String> parameters, String target) {
+    public boolean addRecord(List<String> parameters, String target) {
         List<String> headers = csvDataMap.get(target).get(0).definedFields.stream().toList();
         List<String> parametersComplete = new ArrayList<>();
-        parametersComplete.add(GenerateID());
+        parametersComplete.add(generateID());
         parametersComplete.addAll(parameters);
         CSV newRecord = new CSV(parametersComplete, headers);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvDataSource.get(target), true))) {
-            bw.newLine();  // Add a new line for the new row
-            bw.write(newRecord.toCSVFileOutput());  // Write the new row content
+            bw.newLine(); // Add a new line for the new row
+            bw.write(newRecord.toCSVFileOutput()); // Write the new row content
             bw.flush();
-            csvDataMap.put(target, ReadContents(csvDataSource.get(target))); //updates the in-memory store of csv records
+            csvDataMap.put(target, readContents(csvDataSource.get(target))); //updates the in-memory store of csv records
             return true;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -76,8 +82,8 @@ public class TextStorage implements Storage {
      * file initially fails to get read
      */
     @Override
-    public void UpdateRecord(List<String> recordInfo) {
-        List<String> headers = GetHeaders("items");
+    public void updateRecord(List<String> recordInfo) {
+        List<String> headers = getHeaders("items");
 
         int columnToUpdateIndex = -1;
         for (int i = 0; i < headers.size(); i++) {
@@ -116,11 +122,11 @@ public class TextStorage implements Storage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        csvDataMap.put("items", ReadContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
+        csvDataMap.put("items", readContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
     }
 
     @Override
-    public void DeleteRecord(String id) {
+    public void deleteRecord(String id) {
         try (Scanner myReader = new Scanner(new BufferedReader(new FileReader(csvDataSource.get("items"))))) {
             BufferedWriter writer = new BufferedWriter(new FileWriter(csvDataSource.get("items") + ".tmp"));
 
@@ -139,7 +145,6 @@ public class TextStorage implements Storage {
 
                 writer.write(String.join(",", columns));
             }
-
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -152,7 +157,7 @@ public class TextStorage implements Storage {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        csvDataMap.put("items", ReadContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
+        csvDataMap.put("items", readContents(csvDataSource.get("items"))); //updates the in-memory store of csv records
     }
 
 
@@ -170,7 +175,7 @@ public class TextStorage implements Storage {
 	 * @throws RuntimeException if the provided file is not found or other IO issues occur.
 	 */
     @Override
-    public List<CSV> ReadContents(String target) {
+    public List<CSV> readContents(String target) {
         List<CSV> result = new ArrayList<>();
 
         try (Scanner myReader = new Scanner(new BufferedReader(new FileReader(target)))) {
@@ -188,7 +193,7 @@ public class TextStorage implements Storage {
     }
 
     @Override
-    public List<CSV> SearchRecord(String target, Pair<String, String> propertyNameValuePair) {
+    public List<CSV> searchRecord(String target, Pair<String, String> propertyNameValuePair) {
         List<CSV> csvs = csvDataMap.get(target);
         List<CSV> output = new ArrayList<>();
         for (CSV csv: csvs) {
@@ -201,7 +206,7 @@ public class TextStorage implements Storage {
     }
 
     @Override
-    public String GenerateID() {
+    public String generateID() {
         List<CSV> itemsList = csvDataMap.get("items");
         CSV lastRow = itemsList.get(itemsList.size() - 1);
 
@@ -210,6 +215,5 @@ public class TextStorage implements Storage {
         }
 
         return String.format("%05d", Integer.parseInt(lastRow.id) + 1);
-
     }
 }

@@ -8,47 +8,47 @@ import java.util.List;
 
 public class GraphicalInterface implements UserInterface {
     @Override
-    public void DisplayMenu() {
+    public void displayMenu() {
 
     }
 
     @Override
-    public int MenuInputChoice(int optionsQuantity) {
+    public int menuInputChoice(int optionsQuantity) {
         return 0;
     }
 
     @Override
-    public List<String> AddRecordInput() {
+    public List<String> addRecordInput() {
         return null;
     }
 
     @Override
-    public List<String> UpdateRecordInput(List<CSV> csvs, List<String> headers) {
+    public List<String> updateRecordInput(List<CSV> csvs, List<String> headers) {
         return null;
     }
 
     @Override
-    public String DeleteRecordInput(List<CSV> csvs) {
+    public String deleteRecordInput(List<CSV> csvs) {
         return null;
     }
 
     @Override
-    public String ViewTransactionsInput() {
+    public String viewTransactionsInput() {
         return null;
     }
 
     @Override
-    public Pair<String, String> PropertySearchInput(List<String> headers) {
+    public Pair<String, String> propertySearchInput(List<String> headers) {
         return null;
     }
 
     @Override
-    public String ChooseOption(List<String> options) {
+    public String chooseOption(List<String> options) {
         return null;
     }
 
     @Override
-    public void DisplayRecords(List<CSV> csvs) {
+    public void displayRecords(List<CSV> csvs) {
 
     }
 }

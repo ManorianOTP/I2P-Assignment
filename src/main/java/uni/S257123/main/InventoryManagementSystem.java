@@ -56,10 +56,10 @@ public class InventoryManagementSystem
 	 */
 	public static void main(String[] args)	{
 
-		ui.DisplayMenu();
+		ui.displayMenu();
 
 		while (sessionActive) {
-			MenuOptions(ui.MenuInputChoice(optionsQuantity));
+			menuOptions(ui.menuInputChoice(optionsQuantity));
 		}
 		System.out.println("\n\nThanks for using this program...!");
 	}
@@ -71,27 +71,27 @@ public class InventoryManagementSystem
 	 * declarations this will either be running cli + text backend, or GUI + database backend, or a mixture of the two.
 	 * </p>
 	 * @param option an integer that represents what method the user wants to run
-	 * @see UserInterface#MenuInputChoice
+	 * @see UserInterface#menuInputChoice
 	 */
-	public static void MenuOptions(int option) {
+	public static void menuOptions(int option) {
 		switch (option) {
 			case 1 -> {
-				String selectedSource = ui.ChooseOption(storage.GetSources());
-				ui.DisplayRecords(
-						storage.SearchRecord(
+				String selectedSource = ui.chooseOption(storage.getSources());
+				ui.displayRecords(
+						storage.searchRecord(
 								selectedSource,
-								ui.PropertySearchInput(storage.GetHeaders(selectedSource))
+								ui.propertySearchInput(storage.getHeaders(selectedSource))
 						)
 				);
 			}
-			case 2 -> storage.AddRecord(ui.AddRecordInput(),"items");
-			case 3 -> storage.UpdateRecord(ui.UpdateRecordInput(storage.SearchRecord(), storage.GetHeaders("items")));
-			case 4 -> storage.DeleteRecord(ui.DeleteRecordInput(storage.SearchRecord()));
-			case 5 -> ui.DisplayRecords(
-					storage.SearchRecord(
+			case 2 -> storage.addRecord(ui.addRecordInput(),"items");
+			case 3 -> storage.updateRecord(ui.updateRecordInput(storage.searchRecord(), storage.getHeaders("items")));
+			case 4 -> storage.deleteRecord(ui.deleteRecordInput(storage.searchRecord()));
+			case 5 -> ui.displayRecords(
+					storage.searchRecord(
 							"transactions",
-							Pair.of("date",ui.ViewTransactionsInput())));
-			case 6 -> ui.DisplayRecords(storage.SearchRecord());
+							Pair.of("date",ui.viewTransactionsInput())));
+			case 6 -> ui.displayRecords(storage.searchRecord());
 			case 7 -> sessionActive = false;
 			default -> System.out.println("Unexpected error occurred, please enter an integer!");
 		}

@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Implementing interfaces to old state">
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Working update file system with appropriate comments almost everywhere">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/interfaces/UserInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/interfaces/UserInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -316,7 +309,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698831654722</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Working update file system with appropriate comments almost everywhere">
+      <option name="closed" value="true" />
+      <created>1699972522442</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1699972522442</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -351,7 +352,8 @@
     <MESSAGE value="Moving some files plus unused interface" />
     <MESSAGE value="Adding Maven Support" />
     <MESSAGE value="Implementing interfaces to old state" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementing interfaces to old state" />
+    <MESSAGE value="Working update file system with appropriate comments almost everywhere" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working update file system with appropriate comments almost everywhere" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

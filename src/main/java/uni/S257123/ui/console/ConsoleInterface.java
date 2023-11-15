@@ -21,7 +21,7 @@ import java.util.*;
  */
 public class ConsoleInterface implements UserInterface {
     @Override
-    public void DisplayMenu() {
+    public void displayMenu() {
         System.out.println("I N V E N T O R Y    M A N A G E M E N T    S Y S T E M");
         System.out.println("--------------------------------------------------------");
         System.out.println("1. SEARCH");
@@ -42,10 +42,10 @@ public class ConsoleInterface implements UserInterface {
      * @param optionsQuantity the total number of menu options
      * @return the integer value corresponding to the user's valid menu choice
      * @throws InputMismatchException if the input provided is not an integer
-     * @see InventoryManagementSystem#MenuOptions(int)
+     * @see InventoryManagementSystem#menuOptions(int)
      */
     @Override
-    public int MenuInputChoice(int optionsQuantity) {
+    public int menuInputChoice(int optionsQuantity) {
         Scanner input = new Scanner(System.in);
         System.out.print("Enter a choice and Press ENTER to continue[1-7]: ");
         int userInput = -1;
@@ -62,7 +62,7 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public List<String> AddRecordInput() {
+    public List<String> addRecordInput() {
         Scanner input = new Scanner(System.in);
 
         System.out.print("Enter item description: ");
@@ -111,14 +111,14 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public List<String> UpdateRecordInput(List<CSV> csvs, List<String> headers) {
+    public List<String> updateRecordInput(List<CSV> csvs, List<String> headers) {
         Scanner scanner = new Scanner(System.in);
         List<String> output = new ArrayList<>();
 
         String id = GetUserChosenRecord(csvs, scanner);
         output.add(id);
 
-        Pair<String, String> propertyValue = PropertySearchInput(headers);
+        Pair<String, String> propertyValue = propertySearchInput(headers);
         output.add(propertyValue.getLeft());
         output.add(propertyValue.getRight());
 
@@ -132,7 +132,7 @@ public class ConsoleInterface implements UserInterface {
      * @return the index of the record chosen
      */
     private String GetUserChosenRecord(List<CSV> csvs, Scanner scanner) {
-        DisplayRecords(csvs);
+        displayRecords(csvs);
         System.out.println("Which record do you want to update? (input the appropriate ID)");
         boolean validID = false;
         String id = "";
@@ -154,13 +154,13 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public String DeleteRecordInput(List<CSV> csvs) {
+    public String deleteRecordInput(List<CSV> csvs) {
         Scanner scanner = new Scanner(System.in);
         return GetUserChosenRecord(csvs, scanner);
     }
 
     @Override
-    public String ViewTransactionsInput() {
+    public String viewTransactionsInput() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Do you want to view all the transactions from today, or all time? (today/all): ");
@@ -179,16 +179,16 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public Pair<String, String> PropertySearchInput(List<String> headers) {
+    public Pair<String, String> propertySearchInput(List<String> headers) {
         Scanner input = new Scanner(System.in);
-        String propertyName = ChooseOption(headers);
+        String propertyName = chooseOption(headers);
 		System.out.println("Please input a value");
 		String value = input.nextLine();
         return Pair.of(propertyName, value);
     }
 
     @Override
-    public String ChooseOption(List<String> options) {
+    public String chooseOption(List<String> options) {
         Scanner input = new Scanner(System.in);
         String option = "";
         while (!options.contains(option)) {
@@ -200,7 +200,7 @@ public class ConsoleInterface implements UserInterface {
     }
 
     @Override
-    public void DisplayRecords(List<CSV> csvs) {
+    public void displayRecords(List<CSV> csvs) {
         for (CSV csv: csvs) {
             System.out.println(csv);
         }
