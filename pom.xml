@@ -13,12 +13,38 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
+        <!-- JavaFX Dependencies -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21</version>
+        </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>0.0.8</version> <!-- Use the latest version -->
+                <configuration>
+                    <mainClass>uni.S257123.main.InventoryManagementSystem</mainClass> <!-- Replace with your main class -->
+                    <executable>C:\Users\614855621\.jdks\openjdk-21.0.1\bin\java</executable> <!-- Path to java executable -->
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
 </project>

@@ -3,7 +3,14 @@ package uni.S257123.main;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.storage.text.TextStorage;
 import uni.S257123.ui.console.ConsoleInterface;
+import uni.S257123.ui.graphical.GraphicalInterface;
 import uni.S257123.ui.interfaces.UserInterface;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 /**
  * Represents an Inventory Management System that allows users to manage items and view transactions.
@@ -36,11 +43,12 @@ import uni.S257123.ui.interfaces.UserInterface;
  * @author S257123
  * @version 1.0
  */
-public class InventoryManagementSystem
+public class InventoryManagementSystem extends Application
 {
 	static boolean sessionActive = true;
 	static int optionsQuantity = 7;
-	static ConsoleInterface ui = new ConsoleInterface();
+//	static ConsoleInterface ui = new ConsoleInterface();
+	static GraphicalInterface ui = new GraphicalInterface();
 	static TextStorage storage = new TextStorage();
 
 	/**
@@ -55,6 +63,7 @@ public class InventoryManagementSystem
 	 * @param args Command-line arguments (currently unused in this context).
 	 */
 	public static void main(String[] args)	{
+		launch(args);
 
 		ui.displayMenu();
 
@@ -62,6 +71,17 @@ public class InventoryManagementSystem
 			menuOptions(ui.menuInputChoice(optionsQuantity));
 		}
 		System.out.println("\n\nThanks for using this program...!");
+	}
+
+	public void start(Stage primaryStage) {
+		Label label = new Label("Hello, JavaFX!");
+		StackPane root = new StackPane();
+		root.getChildren().add(label);
+
+		Scene scene = new Scene(root, 300, 250);
+		primaryStage.setTitle("JavaFX Welcome");
+		primaryStage.setScene(scene);
+		primaryStage.show();
 	}
 
 	/**
