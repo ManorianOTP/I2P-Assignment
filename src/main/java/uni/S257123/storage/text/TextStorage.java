@@ -186,7 +186,6 @@ public class TextStorage implements Storage {
             }
             writer.close();
             if (deletedRow != null) {
-                System.out.println(deletedRow);
                 addRecord(List.of(deletedRow.toCSVFileOutput().split(",")),"transactions","deleted");
             }
         } catch (IOException e) {

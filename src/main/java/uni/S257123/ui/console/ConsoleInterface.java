@@ -52,7 +52,7 @@ public class ConsoleInterface implements UserInterface {
     @Override
     public int menuInputChoice(int optionsQuantity) {
         Scanner input = new Scanner(System.in);
-        System.out.println("║ Enter a choice and Press ENTER to continue [1-7]:        ║");
+        System.out.print("║ Enter a choice and Press ENTER to continue [1-7]:        ║");
         int userInput = -1;
         try {
             userInput = input.nextInt();
@@ -78,21 +78,21 @@ public class ConsoleInterface implements UserInterface {
         Scanner input = new Scanner(System.in);
 
         System.out.println("╠══════════════════════════════════════════════════════════╣");
-        System.out.println("║ " + String.format("%-57s","Enter item description: ") + "║");
+        System.out.print("║ " + String.format("%-57s","Enter item description: ") + "║");
         String description = input.nextLine();
 
         System.out.println("╠══════════════════════════════════════════════════════════╣");
-        System.out.println("║ " + String.format("%-57s","Enter unit price: ") + "║");
+        System.out.print("║ " + String.format("%-57s","Enter unit price: ") + "║");
         while (!input.hasNextDouble()) {
-            System.out.println("║ " + String.format("%-57s","That's not a valid unit price. Please enter a number.") + "║");
+            System.out.print("║ " + String.format("%-57s","That's not a valid unit price. Please enter a number.") + "║");
             input.next(); // Consume the invalid input
         }
         double unitPrice = input.nextDouble();
 
         System.out.println("╠══════════════════════════════════════════════════════════╣");
-        System.out.println("║ " + String.format("%-57s","Enter quantity in stock: ") + "║");
+        System.out.print("║ " + String.format("%-57s","Enter quantity in stock: ") + "║");
         while (!input.hasNextInt()) {
-            System.out.println("║ " + String.format("%-57s","That's not a valid quantity. Please enter an integer.") + "║");
+            System.out.print("║ " + String.format("%-57s","That's not a valid quantity. Please enter an integer.") + "║");
             input.next(); // Consume the invalid input
         }
         int qtyInStock = input.nextInt();
@@ -114,14 +114,16 @@ public class ConsoleInterface implements UserInterface {
         System.out.println("║ " + String.format("%-57s","Total Price: " + totalPrice) + "║");
 
         // User Confirmation
-        System.out.print("Do you want to add this item to the file? (yes/no): ");
+        System.out.print("║ " + String.format("%-57s","Do you want to add this item to the file? (yes/no): ") + "║");
         input.nextLine();  // Consume the remaining newline character from using input.nextInt() prior
         String confirmation = input.nextLine().trim().toLowerCase();
 
         if (confirmation.equals("yes") || confirmation.equals("y")) {
+            System.out.println("╠══════════════════════════════════════════════════════════╣");
             return parameters;
         } else {
-            System.out.println("Item not added.\n");
+            System.out.println("║ " + String.format("%-57s","Item not added.") + "║");
+            System.out.println("╠══════════════════════════════════════════════════════════╣");
             return null;
         }
     }
@@ -149,7 +151,7 @@ public class ConsoleInterface implements UserInterface {
      */
     private String GetUserChosenRecord(List<CSV> csvs, Scanner scanner) {
         displayRecords(csvs);
-        System.out.println("Which record do you want to update? (input the appropriate ID)");
+        System.out.print("║ " + String.format("%-57s","Which record do you want to update? (input an ID)") + "║");
         boolean validID = false;
         String id = "";
         while (!validID){
@@ -179,11 +181,11 @@ public class ConsoleInterface implements UserInterface {
     public String viewTransactionsInput() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Do you want to view all the transactions from today, or all time? (today/all): ");
+        System.out.print("║ " + String.format("%-57s","View transactions from today, or all time? (today/all): ") + "║");
         String input = scanner.nextLine().trim().toLowerCase();
 
         while (!input.equals("today") && !input.equals("all")) {
-            System.out.println("Invalid input. Please enter 'today' or 'all'.");
+            System.out.print("║ " + String.format("%-57s","Invalid input. Please enter 'today' or 'all'.") + "║");
             input = scanner.nextLine().trim().toLowerCase();
         }
 
@@ -199,7 +201,7 @@ public class ConsoleInterface implements UserInterface {
         Scanner input = new Scanner(System.in);
         String propertyName = chooseOption(headers);
         System.out.println("╠══════════════════════════════════════════════════════════╣");
-        System.out.println("║ " + String.format("%-57s","Please input a value:") + "║");
+        System.out.print("║ " + String.format("%-57s","Please input a value:") + "║");
 		String value = input.nextLine();
         return Pair.of(propertyName, value);
     }
@@ -211,7 +213,7 @@ public class ConsoleInterface implements UserInterface {
         while (!options.contains(option)) {
             System.out.println("╠══════════════════════════════════════════════════════════╣");
             System.out.println("║ Please input a valid option from the following list:     ║");
-            System.out.println("║ " + String.format("%-57s",options) + "║");
+            System.out.print("║ " + String.format("%-57s",options) + "║");
             option = input.nextLine();
         }
         return option;
