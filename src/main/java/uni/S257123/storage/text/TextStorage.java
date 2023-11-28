@@ -8,6 +8,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -17,10 +18,11 @@ public class TextStorage implements Storage {
     /**
      * Maps the file names to their associated file path
      */
-    private final Map<String, String> csvDataSource = Map.of(
-            "items", itemsFilePath,
-            "transactions", transactionsFilePath
-    );
+    private final Map<String, String> csvDataSource = new LinkedHashMap<>() {{
+        put("items", itemsFilePath);
+        put("transactions", transactionsFilePath);
+    }};
+
     /**
      * Maps the file names to the data read into memory from their associated file
      */
@@ -54,24 +56,52 @@ public class TextStorage implements Storage {
      *                   </ol>
      *                   It is up to the implementation whether providing the total price (calculated) is necessary
      * @param target the file name for the record to be added, without its file extension
+     * @return true or false, based off whether the add succeeded
 	 * @throws RuntimeException if an IOException occurs while writing to or reading from the file.
+     * @see #addRecord(List, String)
 	 */
     @Override
-    public boolean addRecord(List<String> parameters, String target) {
-        List<String> headers = csvDataMap.get(target).get(0).definedFields.stream().toList();
-        List<String> parametersComplete = new ArrayList<>();
-        parametersComplete.add(generateID());
-        parametersComplete.addAll(parameters);
-        CSV newRecord = new CSV(parametersComplete, headers);
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvDataSource.get(target), true))) {
-            bw.newLine(); // Add a new line for the new row
-            bw.write(newRecord.toCSVFileOutput()); // Write the new row content
-            bw.flush();
-            csvDataMap.put(target, readContents(csvDataSource.get(target))); //updates the in-memory store of csv records
-            return true;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public boolean addRecord(List<String> parameters, String target, String transactionType) {
+        if (Objects.nonNull(parameters)) {
+            List<String> headers = csvDataMap.get(target).get(0).definedFields.stream().toList();
+            List<String> parametersComplete = new ArrayList<>();
+            if (target.equals("items")) {
+                parametersComplete.add(generateID());
+                parametersComplete.addAll(parameters);
+                addRecord(parametersComplete, "transactions", "added"); // adds a transaction record to the attempt
+            } else {
+                parametersComplete.addAll(parameters); // ID, description, unitPrice, totalPrice, Stock remaining
+                parametersComplete.add(transactionType); // transaction type
+                parametersComplete.add(new SimpleDateFormat("dd/MM/yyyy").format(new Date()));
+            }
+            CSV newRecord = new CSV(parametersComplete, headers);
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(csvDataSource.get(target), true))) {
+                bw.newLine(); // Add a new line for the new row
+                bw.write(newRecord.toCSVFileOutput()); // Write the new row content
+                bw.flush();
+                csvDataMap.put(target, readContents(csvDataSource.get(target))); //updates the in-memory store of csv records
+                return true;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        return false;
+    }
+
+    /**
+     * Defaults transaction type to "added" for {@link #addRecord(List, String, String)}
+     * @param parameters At a minimum, should provide:
+     *                   <ol>
+     *                   <li>Item Description</li>
+     *                   <li>Unit Price</li>
+     *                   <li>Quantity in Stock</li>
+     *                    </ol>
+     *                   It is up to the implementation whether providing the total price (calculated) is necessary
+     * @param target the file name for the record to be added, without its file extension
+     * @return true or false, based off whether the add succeeded
+     */
+    public boolean addRecord(List<String> parameters, String target) {
+        return addRecord(parameters, target, "added");
     }
 
     /**
@@ -84,6 +114,7 @@ public class TextStorage implements Storage {
     @Override
     public void updateRecord(List<String> recordInfo) {
         List<String> headers = getHeaders("items");
+        CSV changedRow = null;
 
         int columnToUpdateIndex = -1;
         for (int i = 0; i < headers.size(); i++) {
@@ -106,6 +137,7 @@ public class TextStorage implements Storage {
 
                 if (columns[0].equals(recordInfo.get(0))) {
                     columns[columnToUpdateIndex] = recordInfo.get(2);
+                    changedRow = new CSV(List.of(columns), headers);
                 }
                 writer.write(String.join(",", columns));
 
@@ -119,6 +151,9 @@ public class TextStorage implements Storage {
                     Paths.get(csvDataSource.get("items") + ".tmp"),
                     Paths.get(csvDataSource.get("items")),
                     StandardCopyOption.ATOMIC_MOVE);
+            if (changedRow != null) {
+                addRecord(List.of(changedRow.toCSVFileOutput().split(",")),"transactions","updated");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -131,10 +166,14 @@ public class TextStorage implements Storage {
             BufferedWriter writer = new BufferedWriter(new FileWriter(csvDataSource.get("items") + ".tmp"));
 
             boolean isFirstLine = true;
+            CSV deletedRow = null;
             while (myReader.hasNextLine()) {
                 String currentLine = myReader.nextLine();
                 String[] columns = currentLine.split(",");
                 if (columns[0].equals(id)) {
+                    List<String> columnslist = new ArrayList<>(List.of(columns));
+                    columnslist.set(3,"0");
+                    deletedRow = new CSV(columnslist, getHeaders("items"));
                     continue;
                 }
                 if (!isFirstLine) {
@@ -146,6 +185,10 @@ public class TextStorage implements Storage {
                 writer.write(String.join(",", columns));
             }
             writer.close();
+            if (deletedRow != null) {
+                System.out.println(deletedRow);
+                addRecord(List.of(deletedRow.toCSVFileOutput().split(",")),"transactions","deleted");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -198,7 +241,8 @@ public class TextStorage implements Storage {
         List<CSV> output = new ArrayList<>();
         for (CSV csv: csvs) {
             // Pattern.quote to treat the user input as not regex, with 0+ wildcards preceding and following
-            if (csv.GetPropertyByName(propertyNameValuePair.getLeft()).toString().matches((".*" + Pattern.quote(propertyNameValuePair.getRight()) + ".*"))) {
+            if (csv.GetPropertyByName(propertyNameValuePair.getLeft()).toString().matches(
+                    (".*" + Pattern.quote(propertyNameValuePair.getRight()) + ".*"))) {
                 output.add(csv);
             }
         }

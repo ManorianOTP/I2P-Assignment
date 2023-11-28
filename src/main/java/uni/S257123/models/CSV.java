@@ -27,15 +27,13 @@ public class CSV {
      * properties into one Map
      */
     public String id;
-    String description;
-    Integer qtySold;
-    Integer amount;
-    Integer stockRemaining;
-    String transactionType;
-    Double unitPrice;
-    Integer qtyInStock;
-    Double totalPrice;
-    String date;
+    public String description;
+    public Integer stockRemaining;
+    public String transactionType;
+    public Double unitPrice;
+    public Integer qtyInStock;
+    public Double totalPrice;
+    public String date;
 
     /**
      * A set of fields that were defined for this CSV entry.
@@ -51,8 +49,6 @@ public class CSV {
     Map<String, Supplier<Object>> fieldSuppliers = Map.of(
             "id", () -> id,
             "description", () -> description,
-            "qtySold", () -> qtySold,
-            "amount", () -> amount,
             "stockRemaining", () -> stockRemaining,
             "transactionType", () -> transactionType,
             "unitPrice", () -> unitPrice,
@@ -83,8 +79,6 @@ public class CSV {
             switch (header) {
                 case "id" -> { id = value; definedFields.add("id"); }
                 case "description" -> { description = value; definedFields.add("description"); }
-                case "qtySold" -> { qtySold = Integer.parseInt(value); definedFields.add("qtySold"); }
-                case "amount" -> { amount = Integer.parseInt(value); definedFields.add("amount"); }
                 case "stockRemaining" -> { stockRemaining = Integer.parseInt(value); definedFields.add("stockRemaining"); }
                 case "transactionType" -> { transactionType = value; definedFields.add("transactionType"); }
                 case "unitPrice" -> { unitPrice = Double.parseDouble(value); definedFields.add("unitPrice"); }
@@ -93,6 +87,10 @@ public class CSV {
                 case "date" -> { date = value; definedFields.add("date"); }
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
+        }
+        if (definedFields.contains("qtyInStock") && definedFields.contains("unitPrice")) {
+            definedFields.add("totalPrice");
+            totalPrice = qtyInStock * unitPrice;
         }
     }
 

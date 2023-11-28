@@ -22,18 +22,20 @@ import java.util.*;
 public class ConsoleInterface implements UserInterface {
     @Override
     public void displayMenu() {
-        System.out.println("""
-        I N V E N T O R Y    M A N A G E M E N T    S Y S T E M
-        --------------------------------------------------------
-        1. SEARCH
-        2. ADD NEW ITEM
-        3. UPDATE QUANTITY OF EXISTING ITEM
-        4. REMOVE ITEM
-        5. VIEW TRANSACTIONS
-        6. VIEW ITEMS IN INVENTORY
-        ---------------------------------
-        7. Exit
-        """);
+        System.out.print("""
+            ╔══════════════════════════════════════════════════════════╗
+            ║ I N V E N T O R Y    M A N A G E M E N T    S Y S T E M  ║
+            ╟──────────────────────────────────────────────────────────╢
+            ║ 1. SEARCH                                                ║
+            ║ 2. ADD NEW ITEM                                          ║
+            ║ 3. UPDATE QUANTITY OF EXISTING ITEM                      ║
+            ║ 4. REMOVE ITEM                                           ║
+            ║ 5. VIEW TRANSACTIONS                                     ║
+            ║ 6. VIEW ITEMS IN INVENTORY                               ║
+            ╠══════════════════════════════════════════════════════════╣
+            ║ 7. Exit                                                  ║
+            ╠══════════════════════════════════════════════════════════╣
+            """);
 
     }
 
@@ -50,15 +52,22 @@ public class ConsoleInterface implements UserInterface {
     @Override
     public int menuInputChoice(int optionsQuantity) {
         Scanner input = new Scanner(System.in);
-        System.out.print("Enter a choice and Press ENTER to continue[1-7]: ");
+        System.out.println("║ Enter a choice and Press ENTER to continue [1-7]:        ║");
         int userInput = -1;
+        try {
+            userInput = input.nextInt();
+        } catch (InputMismatchException e) {
+            input.next(); // consume the invalid input
+            System.out.println("║ Unexpected error occurred, please enter an integer!      ║");
+        }
 
        while (userInput < 1 || userInput > optionsQuantity) {
            try {
+               System.out.println("║ Please enter a choice between 1 and 7:                   ║");
                userInput = input.nextInt();
            } catch (InputMismatchException e) {
                input.next(); // consume the invalid input
-               System.out.println("Unexpected error occurred, please enter an integer!");
+               System.out.println("║ Unexpected error occurred, please enter an integer!      ║");
            }
        }
         return userInput;
@@ -68,19 +77,22 @@ public class ConsoleInterface implements UserInterface {
     public List<String> addRecordInput() {
         Scanner input = new Scanner(System.in);
 
-        System.out.print("Enter item description: ");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║ " + String.format("%-57s","Enter item description: ") + "║");
         String description = input.nextLine();
 
-        System.out.print("Enter unit price: ");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║ " + String.format("%-57s","Enter unit price: ") + "║");
         while (!input.hasNextDouble()) {
-            System.out.println("That's not a valid unit price. Please enter a number.");
+            System.out.println("║ " + String.format("%-57s","That's not a valid unit price. Please enter a number.") + "║");
             input.next(); // Consume the invalid input
         }
         double unitPrice = input.nextDouble();
 
-        System.out.print("Enter quantity in stock: ");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║ " + String.format("%-57s","Enter quantity in stock: ") + "║");
         while (!input.hasNextInt()) {
-            System.out.println("That's not a valid quantity. Please enter an integer.");
+            System.out.println("║ " + String.format("%-57s","That's not a valid quantity. Please enter an integer.") + "║");
             input.next(); // Consume the invalid input
         }
         int qtyInStock = input.nextInt();
@@ -94,11 +106,12 @@ public class ConsoleInterface implements UserInterface {
                 String.valueOf(totalPrice)
         );
 
-        System.out.println("\nItem To Be Added:");
-        System.out.println("Description: " + description);
-        System.out.println("Unit Price: " + unitPrice);
-        System.out.println("Quantity in Stock: " + qtyInStock);
-        System.out.println("Total Price: " + totalPrice + "\n");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║ " + String.format("%-57s","Item To Be Added:") + "║");
+        System.out.println("║ " + String.format("%-57s","Description: " + description) + "║");
+        System.out.println("║ " + String.format("%-57s","Unit Price:" + unitPrice) + "║");
+        System.out.println("║ " + String.format("%-57s","Quantity in Stock: " + qtyInStock) + "║");
+        System.out.println("║ " + String.format("%-57s","Total Price: " + totalPrice) + "║");
 
         // User Confirmation
         System.out.print("Do you want to add this item to the file? (yes/no): ");
@@ -185,7 +198,8 @@ public class ConsoleInterface implements UserInterface {
     public Pair<String, String> propertySearchInput(List<String> headers) {
         Scanner input = new Scanner(System.in);
         String propertyName = chooseOption(headers);
-		System.out.println("Please input a value");
+        System.out.println("╠══════════════════════════════════════════════════════════╣");
+        System.out.println("║ " + String.format("%-57s","Please input a value:") + "║");
 		String value = input.nextLine();
         return Pair.of(propertyName, value);
     }
@@ -195,8 +209,9 @@ public class ConsoleInterface implements UserInterface {
         Scanner input = new Scanner(System.in);
         String option = "";
         while (!options.contains(option)) {
-            System.out.println("Please input a valid option from the following list");
-            System.out.println(options);
+            System.out.println("╠══════════════════════════════════════════════════════════╣");
+            System.out.println("║ Please input a valid option from the following list:     ║");
+            System.out.println("║ " + String.format("%-57s",options) + "║");
             option = input.nextLine();
         }
         return option;
@@ -205,7 +220,10 @@ public class ConsoleInterface implements UserInterface {
     @Override
     public void displayRecords(List<CSV> csvs) {
         for (CSV csv: csvs) {
-            System.out.println(csv);
+            System.out.println("╠" + String.format("%-158s","").replace(" ", "═") + "╣");
+            System.out.println("║ " + String.format("%-157s",csv) + "║");
         }
+        System.out.println("╠" + String.format("%-58s","").replace(" ", "═") + "╦"
+                + String.format("%-99s","").replace(" ", "═") + "╝");
     }
 }

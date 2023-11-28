@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Camel-cased all methods" />
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Made menu print one print statement">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/transactions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/transactions.txt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +82,7 @@
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.2574359&quot;
   }
 }</component>
@@ -322,7 +330,15 @@
       <option name="project" value="LOCAL" />
       <updated>1700047218572</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Made menu print one print statement">
+      <option name="closed" value="true" />
+      <created>1700047439537</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1700047439537</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -359,7 +375,8 @@
     <MESSAGE value="Implementing interfaces to old state" />
     <MESSAGE value="Working update file system with appropriate comments almost everywhere" />
     <MESSAGE value="Camel-cased all methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Camel-cased all methods" />
+    <MESSAGE value="Made menu print one print statement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Made menu print one print statement" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

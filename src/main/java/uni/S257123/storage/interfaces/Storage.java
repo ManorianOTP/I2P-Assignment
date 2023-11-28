@@ -23,8 +23,8 @@ public interface Storage {
 
     /**
      * Adds a new record to the specified location based on the provided parameters. It is the additional responsibility
-     * of this method to ensure that the new ID from {@link #generateID()} is added to the provided parameters.
-     * It also should ensure that future operations are aware that this file has been added.
+     * of this method to ensure that the new ID from {@link #generateID()} is added to the provided parameters if being
+     * used to add to items. It also should ensure that future operations are aware that this file has been added.
      * <p>Note: When transaction functionality is added, need to ensure a transaction gets added when this is run</p>
      * @param parameters At a minimum, should provide:
      *                   <ol>
@@ -34,9 +34,10 @@ public interface Storage {
      *                   </ol>
      *                   It is up to the implementation whether providing the total price (calculated) is necessary
      * @param target the datasource for the record to be added to, without its file extension
-     * @return true if the record was sucessfully added
+     * @param transactionType either "added", "updated", or "deleted", based on what is being done to items
+     * @return true if the record was successfully added
      */
-    boolean addRecord(List<String> parameters, String target);
+    boolean addRecord(List<String> parameters, String target, String transactionType);
 
     /**
      * Takes in an ID along with a property and value to update, and the items data-store to change the associated
