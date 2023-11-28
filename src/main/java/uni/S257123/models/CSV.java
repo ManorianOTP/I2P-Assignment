@@ -1,9 +1,11 @@
+package uni.S257123.models;
+
 import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
- * Represents a structured representation of an entry in a CSV (Comma-Separated Values) file.
+ * A structured representation of an entry in a CSV (Comma-Separated Values) file.
  * This class captures various data attributes typically found in CSV files.
  * Each attribute corresponds to a potential column in the CSV file.
  *
@@ -24,22 +26,20 @@ public class CSV {
      * Using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
      * properties into one Map
      */
-    String id;
-    String description;
-    Integer qtySold;
-    Integer amount;
-    Integer stockRemaining;
-    String transactionType;
-    Double unitPrice;
-    Integer qtyInStock;
-    Double totalPrice;
-    String date;
+    public String id;
+    public String description;
+    public Integer stockRemaining;
+    public String transactionType;
+    public Double unitPrice;
+    public Integer qtyInStock;
+    public Double totalPrice;
+    public String date;
 
     /**
      * A set of fields that were defined for this CSV entry.
      * Using a LinkedHashSet to maintain the order of insertion for predictable iteration.
      */
-    Set<String> definedFields = new LinkedHashSet<>();
+    public Set<String> definedFields = new LinkedHashSet<>();
 
     /**
      * A map associating each field name with a supplier.
@@ -49,8 +49,6 @@ public class CSV {
     Map<String, Supplier<Object>> fieldSuppliers = Map.of(
             "id", () -> id,
             "description", () -> description,
-            "qtySold", () -> qtySold,
-            "amount", () -> amount,
             "stockRemaining", () -> stockRemaining,
             "transactionType", () -> transactionType,
             "unitPrice", () -> unitPrice,
@@ -81,8 +79,6 @@ public class CSV {
             switch (header) {
                 case "id" -> { id = value; definedFields.add("id"); }
                 case "description" -> { description = value; definedFields.add("description"); }
-                case "qtySold" -> { qtySold = Integer.parseInt(value); definedFields.add("qtySold"); }
-                case "amount" -> { amount = Integer.parseInt(value); definedFields.add("amount"); }
                 case "stockRemaining" -> { stockRemaining = Integer.parseInt(value); definedFields.add("stockRemaining"); }
                 case "transactionType" -> { transactionType = value; definedFields.add("transactionType"); }
                 case "unitPrice" -> { unitPrice = Double.parseDouble(value); definedFields.add("unitPrice"); }
@@ -92,14 +88,17 @@ public class CSV {
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
         }
+        if (definedFields.contains("qtyInStock") && definedFields.contains("unitPrice")) {
+            definedFields.add("totalPrice");
+            totalPrice = qtyInStock * unitPrice;
+        }
     }
 
     /**
      * Retrieves the value of a specified property using the {@code fieldSuppliers} map.
      *
-     * <p>This method uses the given property name to fetch the corresponding value
-     * through the map of field suppliers. If the property name does not exist in the map,
-     * it will return {@code null}.</p>
+     * <p> Fetches the corresponding value to the given property name through the map of field suppliers. If the
+     * property name does not exist in the map, it will return {@code null}.</p>
      *
      * @param propertyName The name of the property whose value needs to be retrieved.
      * @return The value of the specified property, or {@code null} if the property does not exist.
