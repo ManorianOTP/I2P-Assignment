@@ -2,7 +2,6 @@ package uni.S257123.main;
 
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.storage.text.TextStorage;
-import uni.S257123.ui.console.ConsoleInterface;
 import uni.S257123.ui.graphical.GraphicalInterface;
 import uni.S257123.ui.interfaces.UserInterface;
 
@@ -57,12 +56,12 @@ public class InventoryManagementSystem
 	 * @param args Command-line arguments (currently unused in this context).
 	 */
 	public static void main(String[] args)	{
-		ui.main();
-		ui.displayMenu();
-
-		while (sessionActive) {
-			menuOptions(ui.menuInputChoice(optionsQuantity));
-		}
+		ui.entry();
+//		ui.displayMenu();
+//
+//		while (sessionActive) {
+//			menuOptions(ui.menuInputChoice(optionsQuantity));
+//		}
 		System.out.println("\n\nThanks for using this program...!");
 	}
 

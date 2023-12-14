@@ -3,3 +3,6 @@ id,description,unitPrice,qtyInStock,totalPrice
 00002,item2,20.0,36,720.0
 00003,item3,30.0,82,2460.0
 00005,Samsung,1000.0,150,100000.0
+00006,TestItemGUI,15.0,10,150.0
+00007,testSubmit,12.0,10,120.0
+00008,TestSubmit2,12.0,10,120.0

@@ -10,3 +10,7 @@ id,description,unitPrice,stockRemaining,totalPrice,transactionType,date
 00005,iPhone,1000.0,150,150000.0,updated,27/11/2023
 00005,Samsung,1000.0,150,150000.0,updated,28/11/2023
 00004,item4,1000.0,0,0.0,deleted,28/11/2023
+00006,testItemFor Jamie,100.0,15,1500.0,added,28/11/2023
+00006,TestItemGUI,15.0,10,150.0,added,14/12/2023
+00007,testSubmit,12.0,10,120.0,added,14/12/2023
+00008,TestSubmit2,12.0,10,120.0,added,14/12/2023

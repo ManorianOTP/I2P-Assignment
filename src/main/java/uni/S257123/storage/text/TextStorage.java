@@ -253,7 +253,7 @@ public class TextStorage implements Storage {
         List<CSV> itemsList = csvDataMap.get("items");
         CSV lastRow = itemsList.get(itemsList.size() - 1);
 
-        if (Integer.parseInt(lastRow.id) >= 100_000) {
+        if (Integer.parseInt(lastRow.id) + 1 >= 100_000) {
             throw new RuntimeException("ID exceeds the maximum allowed value");
         }
 

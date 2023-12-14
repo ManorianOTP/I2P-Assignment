@@ -14,11 +14,35 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+        </repository>
+        <repository>
+            <id>gluon</id>
+            <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
+        </repository>
+        <!-- Any other repositories you want to include -->
+    </repositories>
+
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
+        </dependency>
+        <!-- Gluon Dependencies -->
+        <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm-glisten</artifactId>
+            <version>6.2.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.gluonhq.attach</groupId>
+            <artifactId>display</artifactId>
+            <version>4.0.19</version>
         </dependency>
         <!-- JavaFX Dependencies -->
         <dependency>
@@ -38,13 +62,20 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version> <!-- Use the latest version -->
+                <version>0.0.8</version>
                 <configuration>
-                    <mainClass>uni.S257123.main.InventoryManagementSystem</mainClass> <!-- Replace with your main class -->
-                    <executable>C:\Users\614855621\.jdks\openjdk-21.0.1\bin\java</executable> <!-- Path to java executable -->
+                    <mainClass>uni.S257123.main.InventoryManagementSystem</mainClass>
+                    <executable>C:\Users\614855621\.jdks\openjdk-21.0.1\bin\java</executable>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>com.gluonhq</groupId>
+                <artifactId>gluonfx-maven-plugin</artifactId>
+                <version>1.0.22</version>
+                <configuration>
+                    <mainClass>uni.S257123.main.InventoryManagementSystem</mainClass>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
