@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="accountSettings">
-    <option name="activeRegion" value="us-east-1" />
+    <option name="activeRegion" value="eu-west-2" />
     <option name="recentlyUsedRegions">
       <list>
-        <option value="us-east-1" />
         <option value="eu-west-2" />
+        <option value="us-east-1" />
       </list>
     </option>
+  </component>
+  <component name="connectionManager">
+    <option name="activeConnectionId" value="sso;eu-west-2;https://d-9c6777f6c7.awsapps.com/start" />
+  </component>
+  <component name="explorerToolWindow">
+    <option name="selectedTab" value="Developer Tools" />
   </component>
 </project>
