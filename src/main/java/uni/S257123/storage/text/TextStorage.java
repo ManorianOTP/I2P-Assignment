@@ -13,12 +13,12 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 public class TextStorage implements Storage {
-    private final String itemsFilePath = "src/main/resources/items.txt";
-    private final String transactionsFilePath = "src/main/resources/transactions.txt";
+    public final String itemsFilePath = "src/main/resources/items.txt";
+    public final String transactionsFilePath = "src/main/resources/transactions.txt";
     /**
      * Maps the file names to their associated file path
      */
-    private final Map<String, String> csvDataSource = new LinkedHashMap<>() {{
+    public final Map<String, String> csvDataSource = new LinkedHashMap<>() {{
         put("items", itemsFilePath);
         put("transactions", transactionsFilePath);
     }};
@@ -26,7 +26,7 @@ public class TextStorage implements Storage {
     /**
      * Maps the file names to the data read into memory from their associated file
      */
-    private final HashMap<String, List<CSV>> csvDataMap = new HashMap<>(Map.of(
+    public final HashMap<String, List<CSV>> csvDataMap = new HashMap<>(Map.of(
             "items", readContents(itemsFilePath),
             "transactions", readContents(transactionsFilePath))
     );
@@ -100,6 +100,7 @@ public class TextStorage implements Storage {
      * @param target the file name for the record to be added, without its file extension
      * @return true or false, based off whether the add succeeded
      */
+    @Override
     public boolean addRecord(List<String> parameters, String target) {
         return addRecord(parameters, target, "added");
     }
@@ -253,7 +254,7 @@ public class TextStorage implements Storage {
         List<CSV> itemsList = csvDataMap.get("items");
         CSV lastRow = itemsList.get(itemsList.size() - 1);
 
-        if (Integer.parseInt(lastRow.id) >= 100_000) {
+        if (Integer.parseInt(lastRow.id) + 1 >= 100_000) {
             throw new RuntimeException("ID exceeds the maximum allowed value");
         }
 

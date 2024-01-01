@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="All done bar updating printing">
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="JavaFX GUI with text backend done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/database/DatabaseStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/database/DatabaseStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/transactions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/transactions.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,6 +24,7 @@
         <option value="JUnit5 Test Class" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="FxmlFile" />
       </list>
     </option>
   </component>
@@ -46,6 +49,9 @@
         <option name="url" value="https://github.com/ManorianOTP/I2P-Assignment.git" />
       </UrlAndAccount>
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/21/javafx-graphics-21-sources.jar!/javafx/application/Application.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -73,14 +79,14 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Feature/Implementing-Interfaces&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Feature/JavaFX&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/614855621/IdeaProjects/Uni/I2P Assignment&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
     &quot;settings.editor.splitter.proportion&quot;: &quot;0.2574359&quot;
   }
 }</component>
@@ -101,7 +107,7 @@
       <recent name="uni.S257123.main" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.InventoryManagementSystem">
     <configuration name="InventoryManagementSystem" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="uni.S257123.main.InventoryManagementSystem" />
       <module name="I2P_Assignment_Maven" />
@@ -110,6 +116,11 @@
           <option name="PATTERN" value="uni.S257123.main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
+      </extension>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
       </extension>
       <method v="2">
         <option name="Make" enabled="true" />
@@ -128,6 +139,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="I2P_Assignment_JavaFX_Debug" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="javafx:run" />
+                <option value="-X" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <extension name="software.aws.toolkits.jetbrains.core.execution.JavaAwsConnectionExtension">
+        <option name="credential" />
+        <option name="region" />
+        <option name="useCurrentConnection" value="false" />
+      </extension>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.InventoryManagementSystem" />
+      <item itemvalue="Maven.I2P_Assignment_JavaFX_Debug" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.InventoryManagementSystem" />
@@ -344,7 +394,31 @@
       <option name="project" value="LOCAL" />
       <updated>1701165242225</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="GUI main ui File">
+      <option name="closed" value="true" />
+      <created>1701176028356</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1701176028356</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Add Item works with text backend">
+      <option name="closed" value="true" />
+      <created>1702550846025</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1702550846025</updated>
+    </task>
+    <task id="LOCAL-00030" summary="JavaFX GUI with text backend done">
+      <option name="closed" value="true" />
+      <created>1703157029636</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1703157029636</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -359,8 +433,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Base Commit" />
-    <MESSAGE value="Fixing some base logic in starting files" />
     <MESSAGE value="Cleaned up while loop to switch statement" />
     <MESSAGE value="Removing starting comment summarising brief" />
     <MESSAGE value="Added error handling to input" />
@@ -383,7 +455,10 @@
     <MESSAGE value="Camel-cased all methods" />
     <MESSAGE value="Made menu print one print statement" />
     <MESSAGE value="All done bar updating printing" />
-    <option name="LAST_COMMIT_MESSAGE" value="All done bar updating printing" />
+    <MESSAGE value="GUI main ui File" />
+    <MESSAGE value="Add Item works with text backend" />
+    <MESSAGE value="JavaFX GUI with text backend done" />
+    <option name="LAST_COMMIT_MESSAGE" value="JavaFX GUI with text backend done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

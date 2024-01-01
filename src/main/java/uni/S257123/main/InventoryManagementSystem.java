@@ -1,9 +1,15 @@
 package uni.S257123.main;
 
 import org.apache.commons.lang3.tuple.Pair;
+import uni.S257123.storage.database.DatabaseStorage;
+import uni.S257123.storage.interfaces.Storage;
 import uni.S257123.storage.text.TextStorage;
 import uni.S257123.ui.console.ConsoleInterface;
+import uni.S257123.ui.graphical.GraphicalInterface;
 import uni.S257123.ui.interfaces.UserInterface;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Represents an Inventory Management System that allows users to manage items and view transactions.
@@ -40,8 +46,8 @@ public class InventoryManagementSystem
 {
 	static boolean sessionActive = true;
 	static int optionsQuantity = 7;
-	static ConsoleInterface ui = new ConsoleInterface();
-	static TextStorage storage = new TextStorage();
+	static UserInterface ui = new ConsoleInterface();
+	static Storage storage;
 
 	/**
 	 * Entry point for the Inventory Management System.
@@ -55,13 +61,40 @@ public class InventoryManagementSystem
 	 * @param args Command-line arguments (currently unused in this context).
 	 */
 	public static void main(String[] args)	{
+		chooseSettings();
 
-		ui.displayMenu();
-
-		while (sessionActive) {
-			menuOptions(ui.menuInputChoice(optionsQuantity));
-		}
 		System.out.println("\n\nThanks for using this program...!");
+	}
+
+	private static void chooseSettings() {
+		String choice = ui.chooseOption(new ArrayList<>(Arrays.asList("text", "database")));
+		if (choice.equals("text")) {
+			storage = new TextStorage();
+			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
+			if (choice.equals("gui")) {
+				ui = new GraphicalInterface();
+				ui.displayMenu();
+			} else if (choice.equals("cli")) {
+				ui = new ConsoleInterface();
+				ui.displayMenu();
+				while (sessionActive) {
+					menuOptions(ui.menuInputChoice(optionsQuantity));
+				}
+			}
+		} else if (choice.equals("database")) {
+			storage = new DatabaseStorage();
+			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
+			if (choice.equals("gui")) {
+				ui = new GraphicalInterface();
+				ui.displayMenu();
+			} else if (choice.equals("cli")) {
+				ui = new ConsoleInterface();
+				ui.displayMenu();
+				while (sessionActive) {
+					menuOptions(ui.menuInputChoice(optionsQuantity));
+				}
+			}
+		}
 	}
 
 	/**
