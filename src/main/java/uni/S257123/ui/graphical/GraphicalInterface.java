@@ -43,10 +43,6 @@ public class GraphicalInterface extends Application implements UserInterface{
     public ComboBox<String> DeleteIDItemSelection;
     public Button DeleteItemButton;
 
-    public void entry() {
-        launch();
-    }
-
     @FXML
     private void initialize() {
         setupSearch();
@@ -210,7 +206,7 @@ public class GraphicalInterface extends Application implements UserInterface{
 
     @Override
     public void displayMenu() {
-
+        launch();
     }
 
     @Override

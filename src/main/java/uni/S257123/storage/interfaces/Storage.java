@@ -39,6 +39,8 @@ public interface Storage {
      */
     boolean addRecord(List<String> parameters, String target, String transactionType);
 
+    boolean addRecord(List<String> parameters, String target);
+
     /**
      * Takes in an ID along with a property and value to update, and the items data-store to change the associated
      * values.

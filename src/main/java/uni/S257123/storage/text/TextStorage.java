@@ -100,6 +100,7 @@ public class TextStorage implements Storage {
      * @param target the file name for the record to be added, without its file extension
      * @return true or false, based off whether the add succeeded
      */
+    @Override
     public boolean addRecord(List<String> parameters, String target) {
         return addRecord(parameters, target, "added");
     }
