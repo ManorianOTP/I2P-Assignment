@@ -63,7 +63,8 @@ public class TextStorage implements Storage {
     @Override
     public boolean addRecord(List<String> parameters, String target, String transactionType) {
         if (Objects.nonNull(parameters)) {
-            List<String> headers = csvDataMap.get(target).get(0).definedFields.stream().toList();
+
+            List<String> headers = getHeaders(target);
             List<String> parametersComplete = new ArrayList<>();
             if (target.equals("items")) {
                 parametersComplete.add(generateID());
@@ -259,5 +260,12 @@ public class TextStorage implements Storage {
         }
 
         return String.format("%05d", Integer.parseInt(lastRow.id) + 1);
+    }
+
+    @Override
+    public List<String> getIDs() {
+        return csvDataMap.get("items").stream()
+                .map(csv -> (String) csv.GetPropertyByName("id"))
+                .toList();
     }
 }
