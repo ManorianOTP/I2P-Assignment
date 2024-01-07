@@ -102,4 +102,6 @@ public interface Storage {
      * @throws RuntimeException if the last ID in the {@code items} list exceeds or equals 100,000.
      */
     String generateID();
+
+    List<String> getIDs();
 }

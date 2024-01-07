@@ -69,12 +69,13 @@ public class InventoryManagementSystem
 	private static void chooseSettings() {
 		String choice = ui.chooseOption(new ArrayList<>(Arrays.asList("text", "database")));
 		if (choice.equals("text")) {
-			storage = new TextStorage();
 			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
 			if (choice.equals("gui")) {
 				ui = new GraphicalInterface();
+				ui.setStorage(new TextStorage());
 				ui.displayMenu();
 			} else if (choice.equals("cli")) {
+				storage = new TextStorage();
 				ui = new ConsoleInterface();
 				ui.displayMenu();
 				while (sessionActive) {
@@ -82,12 +83,13 @@ public class InventoryManagementSystem
 				}
 			}
 		} else if (choice.equals("database")) {
-			storage = new DatabaseStorage();
 			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
 			if (choice.equals("gui")) {
 				ui = new GraphicalInterface();
+				ui.setStorage(new DatabaseStorage());
 				ui.displayMenu();
 			} else if (choice.equals("cli")) {
+				storage = new DatabaseStorage();
 				ui = new ConsoleInterface();
 				ui.displayMenu();
 				while (sessionActive) {

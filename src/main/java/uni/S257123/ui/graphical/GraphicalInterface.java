@@ -9,18 +9,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.models.CSV;
+import uni.S257123.storage.interfaces.Storage;
 import uni.S257123.storage.text.TextStorage;
+import uni.S257123.storage.database.DatabaseStorage;
 import uni.S257123.ui.interfaces.UserInterface;
+
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class GraphicalInterface extends Application implements UserInterface{
-    static TextStorage storage = new TextStorage();
+    static Storage storage = new TextStorage();
+
+    public void setStorage(Storage storage) {
+        this.storage = storage;
+    }
 
     public TabPane ManageItemsPane;
     public TextField AddItemDescription;
@@ -54,9 +64,7 @@ public class GraphicalInterface extends Application implements UserInterface{
     }
 
     private void setupDeleteItem() {
-        List<String> ids = storage.csvDataMap.get("items").stream()
-                .map(csv -> (String) csv.GetPropertyByName("id"))
-                .toList();
+        List<String> ids = storage.getIDs();
         DeleteIDItemSelection.getItems().setAll(ids);
         DeleteIDItemSelection.valueProperty().addListener((observable, oldValue, newValue) -> DeleteItemButton.setVisible(true));
         DeleteItemButton.setOnAction(actionEvent -> deleteItem());
@@ -68,12 +76,13 @@ public class GraphicalInterface extends Application implements UserInterface{
     }
 
     private void setupUpdateItem() {
-        List<String> ids = storage.csvDataMap.get("items").stream()
-                .map(csv -> (String) csv.GetPropertyByName("id"))
-                .toList();
+        List<String> ids = storage.getIDs();
         UpdateItemIDSelection.getItems().setAll(ids);
         UpdateItemIDSelection.valueProperty().addListener((observable, oldValue, newValue) -> UpdateItemPropertySelection.setVisible(true));
-        UpdateItemPropertySelection.getItems().setAll(storage.getHeaders("items"));
+        UpdateItemPropertySelection.getItems().setAll(storage.getHeaders("items").stream()
+                .filter(header -> !header.equals("id"))
+                .filter(header -> !header.equals("totalPrice"))
+                .collect(Collectors.toList()));
         UpdateItemPropertySelection.valueProperty().addListener((observable, oldValue, newValue) -> {
             UpdateItemNewValue.setVisible(true);
             UpdateItemSubmit.setVisible(true);
@@ -138,6 +147,31 @@ public class GraphicalInterface extends Application implements UserInterface{
                 Object value = csv.GetPropertyByName(propertyName);
                 return new ReadOnlyObjectWrapper<>(value != null ? value.toString() : "");
             });
+            column.setCellFactory(tc -> {
+                TableCell<CSV, String> cell = new TableCell<>();
+                ContextMenu contextMenu = new ContextMenu();
+                MenuItem copyMenuItem = new MenuItem("Copy");
+                contextMenu.getItems().add(copyMenuItem);
+
+                copyMenuItem.setOnAction(e -> {
+                    if (!cell.isEmpty()) {
+                        Clipboard clipboard = Clipboard.getSystemClipboard();
+                        ClipboardContent content = new ClipboardContent();
+                        content.putString(cell.getItem());
+                        clipboard.setContent(content);
+                    }
+                });
+
+                cell.textProperty().bind(cell.itemProperty());
+                cell.emptyProperty().addListener((obs, wasEmpty, isNowEmpty) -> {
+                    if (isNowEmpty) {
+                        cell.setContextMenu(null);
+                    } else {
+                        cell.setContextMenu(contextMenu);
+                    }
+                });
+                return cell;
+            });
             table.getColumns().add(column);
         }
     }
@@ -194,6 +228,7 @@ public class GraphicalInterface extends Application implements UserInterface{
         Scene scene = new Scene(root);
         primaryStage.setTitle("Inventory Management System");
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 

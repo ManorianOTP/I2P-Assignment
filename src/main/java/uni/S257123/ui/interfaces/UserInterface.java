@@ -3,6 +3,7 @@ package uni.S257123.ui.interfaces;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.models.CSV;
 import uni.S257123.storage.interfaces.Storage;
+import uni.S257123.storage.text.TextStorage;
 
 import java.util.List;
 
@@ -116,4 +117,6 @@ public interface UserInterface {
      * @param csvs a list of CSVs that you want to display to the user
      */
     void displayRecords(List<CSV> csvs);
+
+    void setStorage(Storage storage);
 }

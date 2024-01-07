@@ -85,6 +85,7 @@ public class CSV {
                 case "qtyInStock" -> { qtyInStock = Integer.parseInt(value); definedFields.add("qtyInStock"); }
                 case "totalPrice" -> { totalPrice = Double.parseDouble(value); definedFields.add("totalPrice"); }
                 case "date" -> { date = value; definedFields.add("date"); }
+                case "_id" -> {id = value; definedFields.add("id"); }
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
         }

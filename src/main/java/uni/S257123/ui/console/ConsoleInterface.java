@@ -3,6 +3,7 @@ package uni.S257123.ui.console;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.main.InventoryManagementSystem;
 import uni.S257123.models.CSV;
+import uni.S257123.storage.interfaces.Storage;
 import uni.S257123.ui.interfaces.UserInterface;
 
 import java.text.SimpleDateFormat;
@@ -227,5 +228,10 @@ public class ConsoleInterface implements UserInterface {
         }
         System.out.println("╠" + String.format("%-58s","").replace(" ", "═") + "╦"
                 + String.format("%-99s","").replace(" ", "═") + "╝");
+    }
+
+    @Override
+    public void setStorage(Storage storage) {
+        System.out.println("you shouldn't be here");
     }
 }
