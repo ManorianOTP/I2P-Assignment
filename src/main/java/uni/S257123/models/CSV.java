@@ -77,7 +77,7 @@ public class CSV {
             String value = parameterFileRow.get(i);
 
             switch (header) {
-                case "id" -> { id = value; definedFields.add("id"); }
+                case "id", "_id" -> { id = value; definedFields.add("id"); }
                 case "description" -> { description = value; definedFields.add("description"); }
                 case "stockRemaining" -> { stockRemaining = Integer.parseInt(value); definedFields.add("stockRemaining"); }
                 case "transactionType" -> { transactionType = value; definedFields.add("transactionType"); }
@@ -85,7 +85,6 @@ public class CSV {
                 case "qtyInStock" -> { qtyInStock = Integer.parseInt(value); definedFields.add("qtyInStock"); }
                 case "totalPrice" -> { totalPrice = Double.parseDouble(value); definedFields.add("totalPrice"); }
                 case "date" -> { date = value; definedFields.add("date"); }
-                case "_id" -> {id = value; definedFields.add("id"); }
                 default -> throw new IllegalArgumentException("Unexpected header: " + header);
             }
         }

@@ -72,6 +72,7 @@ public class GraphicalInterface extends Application implements UserInterface{
 
     private void deleteItem() {
         storage.deleteRecord(DeleteIDItemSelection.getValue());
+        showAlert("Delete Successful", "The item has been deleted successfully.", Alert.AlertType.INFORMATION);
         initialize();
     }
 
@@ -97,6 +98,7 @@ public class GraphicalInterface extends Application implements UserInterface{
                     List.of(UpdateItemIDSelection.getValue(),
                     UpdateItemPropertySelection.getValue(),
                     UpdateItemNewValue.getText()));
+            showAlert("Update Successful", "The item has been updated successfully.", Alert.AlertType.INFORMATION);
         }
         initialize();
     }
