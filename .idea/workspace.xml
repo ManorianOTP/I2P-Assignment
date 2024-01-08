@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="JavaFX GUI with text backend done">
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Removed ui interface need, to move comments + add comments">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,28 +63,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Feature/Database-Implementation&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/aaron/IdeaProjects/I2P-Assignment&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;settings.editor.splitter.proportion&quot;: &quot;0.2574359&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.InventoryManagementSystem.executor": "Run",
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/aaron/IdeaProjects/I2P-Assignment",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
+    "settings.editor.splitter.proportion": "0.2574359"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\614855621\IdeaProjects\Uni\I2P Assignment\src\main\resources" />
@@ -104,7 +109,7 @@
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-21" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="uni.S257123.main.InventoryManagementSystem" />
-      <module name="I2P-Assignment" />
+      <module name="I2P_Assignment_Maven" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="uni.S257123.main.*" />
@@ -139,6 +144,7 @@
         <option name="myRunnerSettings" />
         <option name="myRunnerParameters">
           <MavenRunnerParameters>
+            <option name="cmdOptions" />
             <option name="profiles">
               <set />
             </option>
@@ -148,9 +154,13 @@
                 <option value="-X" />
               </list>
             </option>
+            <option name="multimoduleDir" />
             <option name="pomFileName" />
             <option name="profilesMap">
               <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
             </option>
             <option name="resolveToWorkspace" value="false" />
             <option name="workingDirPath" value="$PROJECT_DIR$" />
@@ -173,6 +183,13 @@
         <item itemvalue="Application.InventoryManagementSystem" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-21.0.1-openjdk-21.0.1-f644763e9732-f98dd351" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -408,7 +425,14 @@
       <option name="project" value="LOCAL" />
       <updated>1703157029636</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Tiny updates">
+      <created>1704731223639</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1704731223639</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -423,8 +447,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Cleaned up while loop to switch statement" />
-    <MESSAGE value="Removing starting comment summarising brief" />
     <MESSAGE value="Added error handling to input" />
     <MESSAGE value="Reading items.txt and transactions.txt" />
     <MESSAGE value="Re-writing CSV.java and CSVRead() to use a header row to lower risk of code mistakes" />
@@ -448,7 +470,9 @@
     <MESSAGE value="GUI main ui File" />
     <MESSAGE value="Add Item works with text backend" />
     <MESSAGE value="JavaFX GUI with text backend done" />
-    <option name="LAST_COMMIT_MESSAGE" value="JavaFX GUI with text backend done" />
+    <MESSAGE value="Tiny updates" />
+    <MESSAGE value="Removed ui interface need, to move comments + add comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed ui interface need, to move comments + add comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

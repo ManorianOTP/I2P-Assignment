@@ -17,16 +17,13 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.models.CSV;
 import uni.S257123.storage.interfaces.Storage;
-import uni.S257123.storage.text.TextStorage;
-import uni.S257123.storage.database.DatabaseStorage;
-import uni.S257123.ui.interfaces.UserInterface;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GraphicalInterface extends Application implements UserInterface{
-    static Storage storage = new TextStorage();
+public class GraphicalInterface extends Application {
+    Storage storage;
 
     public void setStorage(Storage storage) {
         this.storage = storage;
@@ -239,50 +236,10 @@ public class GraphicalInterface extends Application implements UserInterface{
         alert.setTitle(title);
         alert.setHeaderText(content);
         alert.showAndWait();
+        alert.showAndWait();
     }
 
-    @Override
     public void displayMenu() {
         launch();
-    }
-
-    @Override
-    public int menuInputChoice(int optionsQuantity) {
-        return 0;
-    }
-
-    @Override
-    public List<String> addRecordInput() {
-        return null;
-    }
-
-    @Override
-    public List<String> updateRecordInput(List<CSV> csvs, List<String> headers) {
-        return null;
-    }
-
-    @Override
-    public String deleteRecordInput(List<CSV> csvs) {
-        return null;
-    }
-
-    @Override
-    public String viewTransactionsInput() {
-        return null;
-    }
-
-    @Override
-    public Pair<String, String> propertySearchInput(List<String> headers) {
-        return null;
-    }
-
-    @Override
-    public String chooseOption(List<String> options) {
-        return null;
-    }
-
-    @Override
-    public void displayRecords(List<CSV> csvs) {
-
     }
 }

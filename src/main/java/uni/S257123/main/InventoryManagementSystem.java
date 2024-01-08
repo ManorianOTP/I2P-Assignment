@@ -46,7 +46,8 @@ public class InventoryManagementSystem
 {
 	static boolean sessionActive = true;
 	static int optionsQuantity = 7;
-	static UserInterface ui = new ConsoleInterface();
+	static GraphicalInterface gui = new GraphicalInterface();
+	static ConsoleInterface cli = new ConsoleInterface();
 	static Storage storage;
 
 	/**
@@ -67,33 +68,29 @@ public class InventoryManagementSystem
 	}
 
 	private static void chooseSettings() {
-		String choice = ui.chooseOption(new ArrayList<>(Arrays.asList("text", "database")));
+		String choice = cli.chooseOption(new ArrayList<>(Arrays.asList("text", "database")));
 		if (choice.equals("text")) {
-			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
+			choice = cli.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
 			if (choice.equals("gui")) {
-				ui = new GraphicalInterface();
-				ui.setStorage(new TextStorage());
-				ui.displayMenu();
+				gui.setStorage(new TextStorage());
+				gui.displayMenu();
 			} else if (choice.equals("cli")) {
 				storage = new TextStorage();
-				ui = new ConsoleInterface();
-				ui.displayMenu();
+				cli.displayMenu();
 				while (sessionActive) {
-					menuOptions(ui.menuInputChoice(optionsQuantity));
+					menuOptions(cli.menuInputChoice(optionsQuantity));
 				}
 			}
 		} else if (choice.equals("database")) {
-			choice = ui.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
+			choice = cli.chooseOption(new ArrayList<>(Arrays.asList("gui", "cli")));
 			if (choice.equals("gui")) {
-				ui = new GraphicalInterface();
-				ui.setStorage(new DatabaseStorage());
-				ui.displayMenu();
+				gui.setStorage(new DatabaseStorage());
+				gui.displayMenu();
 			} else if (choice.equals("cli")) {
 				storage = new DatabaseStorage();
-				ui = new ConsoleInterface();
-				ui.displayMenu();
+				cli.displayMenu();
 				while (sessionActive) {
-					menuOptions(ui.menuInputChoice(optionsQuantity));
+					menuOptions(cli.menuInputChoice(optionsQuantity));
 				}
 			}
 		}
@@ -102,8 +99,8 @@ public class InventoryManagementSystem
 	/**
 	 * Runs the appropriate menu method based on the users input.
 	 * <p>
-	 * These options are generically represented using interfaces, so based on the {@link #ui} and {@link #storage} variables
-	 * declarations this will either be running cli + text backend, or GUI + database backend, or a mixture of the two.
+	 * These options are generically represented using interfaces, so based on the {@link #storage} variables
+	 * declarations this will either be running CLI + text backend, or CLI + database backend
 	 * </p>
 	 * @param option an integer that represents what method the user wants to run
 	 * @see UserInterface#menuInputChoice
@@ -111,22 +108,22 @@ public class InventoryManagementSystem
 	public static void menuOptions(int option) {
 		switch (option) {
 			case 1 -> {
-				String selectedSource = ui.chooseOption(storage.getSources());
-				ui.displayRecords(
+				String selectedSource = cli.chooseOption(storage.getSources());
+				cli.displayRecords(
 						storage.searchRecord(
 								selectedSource,
-								ui.propertySearchInput(storage.getHeaders(selectedSource))
+								cli.propertySearchInput(storage.getHeaders(selectedSource))
 						)
 				);
 			}
-			case 2 -> storage.addRecord(ui.addRecordInput(),"items");
-			case 3 -> storage.updateRecord(ui.updateRecordInput(storage.searchRecord(), storage.getHeaders("items")));
-			case 4 -> storage.deleteRecord(ui.deleteRecordInput(storage.searchRecord()));
-			case 5 -> ui.displayRecords(
+			case 2 -> storage.addRecord(cli.addRecordInput(),"items");
+			case 3 -> storage.updateRecord(cli.updateRecordInput(storage.searchRecord(), storage.getHeaders("items")));
+			case 4 -> storage.deleteRecord(cli.deleteRecordInput(storage.searchRecord()));
+			case 5 -> cli.displayRecords(
 					storage.searchRecord(
 							"transactions",
-							Pair.of("date",ui.viewTransactionsInput())));
-			case 6 -> ui.displayRecords(storage.searchRecord());
+							Pair.of("date",cli.viewTransactionsInput())));
+			case 6 -> cli.displayRecords(storage.searchRecord());
 			case 7 -> sessionActive = false;
 			default -> System.out.println("Unexpected error occurred, please enter an integer!");
 		}

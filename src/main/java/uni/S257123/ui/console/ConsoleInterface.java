@@ -3,7 +3,6 @@ package uni.S257123.ui.console;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.main.InventoryManagementSystem;
 import uni.S257123.models.CSV;
-import uni.S257123.storage.interfaces.Storage;
 import uni.S257123.ui.interfaces.UserInterface;
 
 import java.text.SimpleDateFormat;
@@ -20,8 +19,8 @@ import java.util.*;
  *
  * @see UserInterface
  */
-public class ConsoleInterface implements UserInterface {
-    @Override
+public class ConsoleInterface {
+    
     public void displayMenu() {
         System.out.print("""
             ╔══════════════════════════════════════════════════════════╗
@@ -50,7 +49,7 @@ public class ConsoleInterface implements UserInterface {
      * @throws InputMismatchException if the input provided is not an integer
      * @see InventoryManagementSystem#menuOptions(int)
      */
-    @Override
+    
     public int menuInputChoice(int optionsQuantity) {
         Scanner input = new Scanner(System.in);
         System.out.print("║ Enter a choice and Press ENTER to continue [1-7]:        ║");
@@ -74,7 +73,7 @@ public class ConsoleInterface implements UserInterface {
         return userInput;
     }
 
-    @Override
+    
     public List<String> addRecordInput() {
         Scanner input = new Scanner(System.in);
 
@@ -129,7 +128,7 @@ public class ConsoleInterface implements UserInterface {
         }
     }
 
-    @Override
+    
     public List<String> updateRecordInput(List<CSV> csvs, List<String> headers) {
         Scanner scanner = new Scanner(System.in);
         List<String> output = new ArrayList<>();
@@ -172,13 +171,13 @@ public class ConsoleInterface implements UserInterface {
         return id;
     }
 
-    @Override
+    
     public String deleteRecordInput(List<CSV> csvs) {
         Scanner scanner = new Scanner(System.in);
         return GetUserChosenRecord(csvs, scanner);
     }
 
-    @Override
+    
     public String viewTransactionsInput() {
         Scanner scanner = new Scanner(System.in);
 
@@ -197,7 +196,7 @@ public class ConsoleInterface implements UserInterface {
         }
     }
 
-    @Override
+    
     public Pair<String, String> propertySearchInput(List<String> headers) {
         Scanner input = new Scanner(System.in);
         String propertyName = chooseOption(headers);
@@ -207,7 +206,7 @@ public class ConsoleInterface implements UserInterface {
         return Pair.of(propertyName, value);
     }
 
-    @Override
+    
     public String chooseOption(List<String> options) {
         Scanner input = new Scanner(System.in);
         String option = "";
@@ -220,7 +219,7 @@ public class ConsoleInterface implements UserInterface {
         return option;
     }
 
-    @Override
+    
     public void displayRecords(List<CSV> csvs) {
         for (CSV csv: csvs) {
             System.out.println("╠" + String.format("%-158s","").replace(" ", "═") + "╣");
@@ -228,10 +227,5 @@ public class ConsoleInterface implements UserInterface {
         }
         System.out.println("╠" + String.format("%-58s","").replace(" ", "═") + "╦"
                 + String.format("%-99s","").replace(" ", "═") + "╝");
-    }
-
-    @Override
-    public void setStorage(Storage storage) {
-        System.out.println("you shouldn't be here");
     }
 }
