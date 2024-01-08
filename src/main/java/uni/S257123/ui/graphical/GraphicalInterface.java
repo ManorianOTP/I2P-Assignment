@@ -17,13 +17,14 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.models.CSV;
 import uni.S257123.storage.interfaces.Storage;
+import uni.S257123.storage.text.TextStorage;
 
 import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class GraphicalInterface extends Application {
-    Storage storage;
+    Storage storage = new TextStorage();
 
     public void setStorage(Storage storage) {
         this.storage = storage;
