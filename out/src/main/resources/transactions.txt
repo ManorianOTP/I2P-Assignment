@@ -1,0 +1,15 @@
+id,description,unitPrice,stockRemaining,totalPrice,transactionType,date
+00001,item1,10.0,10,100.0,added,22/11/2023
+00002,item2,20.0,36,720.0,added,22/11/2023
+00003,item3,30.0,82,2460.0,added,22/11/2023
+00004,item4,40.0,57,2280.0,added,22/11/2023
+00004,item4,1000.0,57,57000.0,updated,22/11/2023
+00005,itemstest,12.0,10,120.0,added,27/11/2023
+00005,itemstest,12.0,0,0.0,deleted,27/11/2023
+00005,iPhone,1000.0,100,100000.0,added,27/11/2023
+00005,iPhone,1000.0,150,150000.0,updated,27/11/2023
+00005,Samsung,1000.0,150,150000.0,updated,28/11/2023
+00004,item4,1000.0,0,0.0,deleted,28/11/2023
+00012,Another item,30.0,5,150.0,added,11/01/2024
+00013,try delete me,45.0,60,2700.0,added,11/01/2024
+00014,Example Added Item,100.0,80,8000.0,added,11/01/2024
