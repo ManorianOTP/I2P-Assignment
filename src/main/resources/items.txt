@@ -6,3 +6,4 @@ id,description,unitPrice,qtyInStock,totalPrice
 00011,Item11,10.0,10,100.0
 00012,Another item,30.0,5,150.0
 00013,try delete me,45.0,60,2700.0
+00014,Example Added Item,100.0,80,8000.0

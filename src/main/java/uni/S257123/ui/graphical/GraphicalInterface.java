@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @see uni.S257123.ui.console.ConsoleInterface
  */
 public class GraphicalInterface extends Application {
-    Storage storage = new TextStorage();
+    static Storage storage = new TextStorage();
 
     /**
      * Sets the storage that powers the backend of the GUI. If this method doesn't get called,

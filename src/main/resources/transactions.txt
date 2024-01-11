@@ -12,3 +12,4 @@ id,description,unitPrice,stockRemaining,totalPrice,transactionType,date
 00004,item4,1000.0,0,0.0,deleted,28/11/2023
 00012,Another item,30.0,5,150.0,added,11/01/2024
 00013,try delete me,45.0,60,2700.0,added,11/01/2024
+00014,Example Added Item,100.0,80,8000.0,added,11/01/2024

@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Fixed bug from last commit">
+    <list default="true" id="408e39d7-32f6-4268-9507-6bc85a105f60" name="Changes" comment="Complete to the state it'll be submitted in">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/main/InventoryManagementSystem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/models/CSV.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/database/DatabaseStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/database/DatabaseStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/interfaces/Storage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/storage/text/TextStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/console/ConsoleInterface.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/graphical/GraphicalInterface.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/uni/S257123/ui/interfaces/UserInterface.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/GUI.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/GUI.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/items.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/transactions.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/transactions.txt" afterDir="false" />
     </list>
@@ -218,7 +210,7 @@
       <workItem from="1704799101629" duration="18000" />
       <workItem from="1704799129343" duration="7720000" />
       <workItem from="1704899550816" duration="5781000" />
-      <workItem from="1704931737561" duration="4270000" />
+      <workItem from="1704931737561" duration="5961000" />
     </task>
     <task id="LOCAL-00001" summary="Base Commit">
       <created>1696846939402</created>
@@ -468,7 +460,15 @@
       <option name="project" value="LOCAL" />
       <updated>1704755626205</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Complete to the state it'll be submitted in">
+      <option name="closed" value="true" />
+      <created>1704938544387</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1704938544387</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,7 +486,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reading items.txt and transactions.txt" />
     <MESSAGE value="Re-writing CSV.java and CSVRead() to use a header row to lower risk of code mistakes" />
     <MESSAGE value="Adding View Items functionality" />
     <MESSAGE value="Commenting the code, and massively enhancing the reliability and maintainability of the CSV implementation" />
@@ -511,7 +510,8 @@
     <MESSAGE value="Tiny updates" />
     <MESSAGE value="Removed ui interface need, to move comments + add comments" />
     <MESSAGE value="Fixed bug from last commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed bug from last commit" />
+    <MESSAGE value="Complete to the state it'll be submitted in" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete to the state it'll be submitted in" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
