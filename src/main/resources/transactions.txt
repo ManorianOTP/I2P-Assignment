@@ -10,3 +10,5 @@ id,description,unitPrice,stockRemaining,totalPrice,transactionType,date
 00005,iPhone,1000.0,150,150000.0,updated,27/11/2023
 00005,Samsung,1000.0,150,150000.0,updated,28/11/2023
 00004,item4,1000.0,0,0.0,deleted,28/11/2023
+00012,Another item,30.0,5,150.0,added,11/01/2024
+00013,try delete me,45.0,60,2700.0,added,11/01/2024

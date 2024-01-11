@@ -21,11 +21,9 @@ import java.util.stream.Collectors;
  * a {@code NumberFormatException} will be thrown.</p>
  */
 public class CSV {
-    /**
-     * The list of potential properties that can be declared in an instance of the CSV class.
-     * Using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
-     * properties into one Map
-     */
+    // The list of potential properties that can be declared in an instance of the CSV class.
+    // Using the object classes rather than primitives like int, as otherwise I can't store all the differently typed
+    // properties into one Map
     public String id;
     public String description;
     public Integer stockRemaining;

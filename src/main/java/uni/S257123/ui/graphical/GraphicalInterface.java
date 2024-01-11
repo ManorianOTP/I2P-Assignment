@@ -23,9 +23,24 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * A javafx-based graphical user interface for the Inventory Management System. This class
+ * implements methods that interact with the user via a graphical window.
+ *
+ * <p>All methods depend upon being able to load the GUI for input and output. Invalid inputs
+ * are handled within each method, ensuring that the user is always prompted to enter
+ * correct data as necessary (primarily by dynamically providing the user dropdown options).</p>
+ *
+ * @see uni.S257123.ui.console.ConsoleInterface
+ */
 public class GraphicalInterface extends Application {
     Storage storage = new TextStorage();
 
+    /**
+     * Sets the storage that powers the backend of the GUI. If this method doesn't get called,
+     * the default will be the {@link TextStorage}.
+     * @param storage the backend to be used for the GUI
+     */
     public void setStorage(Storage storage) {
         this.storage = storage;
     }
@@ -51,6 +66,14 @@ public class GraphicalInterface extends Application {
     public ComboBox<String> DeleteIDItemSelection;
     public Button DeleteItemButton;
 
+    /**
+     * Sets up each tab in the GUI. This is the first method to resolve, so any code prior to the application starting
+     * should be run from here. This method sometimes gets re-called as an easy way to ensure all tables have up-to-date
+     * data, and all dropdowns have the correct available options.
+     *
+     * <p>To avoid too many repetitive comments, most of the methods that appear within this have inline comments
+     * rather than javadoc style comments</p>
+     */
     @FXML
     private void initialize() {
         setupSearch();
@@ -60,10 +83,10 @@ public class GraphicalInterface extends Application {
         setupTable("items", ViewItemsTable);
         setupTable("transactions",  ViewTransactionsTable);
     }
-
     private void setupDeleteItem() {
         List<String> ids = storage.getIDs();
         DeleteIDItemSelection.getItems().setAll(ids);
+        // When option chosen, make button visible
         DeleteIDItemSelection.valueProperty().addListener((observable, oldValue, newValue) -> DeleteItemButton.setVisible(true));
         DeleteItemButton.setOnAction(actionEvent -> deleteItem());
     }
@@ -77,11 +100,14 @@ public class GraphicalInterface extends Application {
     private void setupUpdateItem() {
         List<String> ids = storage.getIDs();
         UpdateItemIDSelection.getItems().setAll(ids);
+        // When option chosen, make option visible
         UpdateItemIDSelection.valueProperty().addListener((observable, oldValue, newValue) -> UpdateItemPropertySelection.setVisible(true));
+        // Add all headers except id and total price, as you shouldn't be able to edit those
         UpdateItemPropertySelection.getItems().setAll(storage.getHeaders("items").stream()
                 .filter(header -> !header.equals("id"))
                 .filter(header -> !header.equals("totalPrice"))
                 .collect(Collectors.toList()));
+        // When option chosen, make option visible
         UpdateItemPropertySelection.valueProperty().addListener((observable, oldValue, newValue) -> {
             UpdateItemNewValue.setVisible(true);
             UpdateItemSubmit.setVisible(true);
@@ -113,12 +139,14 @@ public class GraphicalInterface extends Application {
 
     private void setupSearch() {
         SearchSourcesSelector.getItems().setAll(storage.getSources());
+        // When option chosen, make option visible
         SearchSourcesSelector.valueProperty().addListener((observable, oldValue, newValue) -> {
             SearchHeadersSelector.setValue(null);
             SearchSubmitButton.setVisible(false);
             SearchHeadersSelector.getItems().setAll(storage.getHeaders(newValue));
             SearchHeadersSelector.setVisible(true);
         });
+        // When option chosen, make option visible
         SearchHeadersSelector.valueProperty().addListener((observable, oldValue, newValue) -> {
             SearchPropertyText.setVisible(true);
             SearchSubmitButton.setVisible(true);
@@ -137,10 +165,18 @@ public class GraphicalInterface extends Application {
         SearchResultTable.setItems(FXCollections.observableArrayList(matchingRows));
     }
 
-    private void setupTableColumns(ObservableList<String> items, TableView<CSV> table) {
+    /**
+     * Used to set up a tables' columns with both how they accept data, and provide them with the ability to be copied
+     * to clipboard from. Given the custom CSV classed being used, this method overrides the traditional javabeans
+     * style of getting properties from objects with a custom CellValueFactory that uses the
+     * {@link CSV#GetPropertyByName(String)}.
+     * @param headers the list of headers that should be turned into column headers
+     * @param table the table that these columns should be added to once created
+     */
+    private void setupTableColumns(ObservableList<String> headers, TableView<CSV> table) {
         table.getItems().clear();
         table.getColumns().clear();
-        for (String propertyName : items) {
+        for (String propertyName : headers) {
             TableColumn<CSV, String> column = new TableColumn<>(propertyName);
             column.setCellValueFactory(cellData -> {
                 CSV csv = cellData.getValue();
@@ -185,10 +221,12 @@ public class GraphicalInterface extends Application {
     }
 
     private boolean validateAddItemInput() {
+        //Ensures that the string can be turned into a number
         if (!NumberUtils.isCreatable(AddItemUnitPrice.getText())) {
             showAlert("Invalid Input", "Unit Price must be a valid number", Alert.AlertType.ERROR);
             return false;
         }
+        //Ensures that the string can be turned into a number
         if (!NumberUtils.isCreatable(AddItemQuantity.getText())) {
             showAlert("Invalid Input", "Quantity in stock must be a valid number", Alert.AlertType.ERROR);
             return false;
@@ -232,11 +270,16 @@ public class GraphicalInterface extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Displays a popup indicating that some kind of event has occurred.
+     * @param title the heading of the popup
+     * @param content the description to the user of what the popup is about
+     * @param alertType the icon indicating what the tone of the message is
+     */
     private void showAlert(String title, String content, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setTitle(title);
         alert.setHeaderText(content);
-        alert.showAndWait();
         alert.showAndWait();
     }
 

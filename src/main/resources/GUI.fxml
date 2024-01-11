@@ -27,8 +27,6 @@
                     </HBox>
                 </VBox>
             </AnchorPane>
-
-
         </AnchorPane>
     </Tab>
     <Tab text="Add Item">

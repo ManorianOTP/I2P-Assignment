@@ -6,7 +6,6 @@ import uni.S257123.storage.interfaces.Storage;
 import uni.S257123.storage.text.TextStorage;
 import uni.S257123.ui.console.ConsoleInterface;
 import uni.S257123.ui.graphical.GraphicalInterface;
-import uni.S257123.ui.interfaces.UserInterface;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,23 +23,26 @@ import java.util.Arrays;
  * </ul>
  *
  * <p>
- * The system stores its data in two text files, one for items and another for transactions. The contents of these
- * files are read into memory as lists of CSV objects at startup.
+ *     The system offers the user between text file based storage or a database, and also a choice between
+ *     a CLI and a GUI.
  * </p>
  *
  * <p>
- * When interacting with the system, users are presented with a text-based menu. They can choose the desired
- * functionality by entering the corresponding number. The program continues to run and provide the menu until
- * the user decides to exit.
+ * The system stores its data in two locations, one for items and another for transactions. The contents of these
+ * locations are read into memory as lists of CSV objects at startup if using a text file solution.
+ * </p>
+ *
+ * <p>
+ * When interacting with the system, users are presented with a menu. The program continues to run and provide the menu
+ * until the user decides to exit.
  * </p>
  *<p>
  * This entire project has been commented using javadoc comments, so if you're ever uncertain about how something works
  * try hovering it in your IDE, or using the javadoc tool to create web documentation
  * </p>
- * <p>Note: there are plans to both change the CLI to a GUI, and add database support</p>
  *
  * @author S257123
- * @version 1.0
+ * @version 2.0
  */
 public class InventoryManagementSystem
 {
@@ -51,13 +53,8 @@ public class InventoryManagementSystem
 	static Storage storage;
 
 	/**
-	 * Entry point for the Inventory Management System.
-	 *
-	 * <p>
-	 * Upon starting, the system displays a menu of options. The user can then interact with this menu
-	 * by choosing various functionalities. The program continues to prompt the user until they decide to
-	 * exit the session. On exit, a farewell message is displayed.
-	 * </p>
+	 * Entry point for the Inventory Management System. The user gets the opportunity to choose what setting they want
+	 * to use
 	 *
 	 * @param args Command-line arguments (currently unused in this context).
 	 */
@@ -67,6 +64,18 @@ public class InventoryManagementSystem
 		System.out.println("\n\nThanks for using this program...!");
 	}
 
+	/**
+	 * Runs the appropriate menu method based on the users input.
+	 * <p>
+	 * The storage options are generically represented using interfaces, so based on the {@link #storage} variables
+	 * declarations this will either be running CLI + text backend, or CLI + database backend, or GUI + text backend,
+	 * or GUI + database backend
+	 * </p>
+	 * @see ConsoleInterface
+	 * @see GraphicalInterface
+	 * @see TextStorage
+	 * @see DatabaseStorage
+	 */
 	private static void chooseSettings() {
 		String choice = cli.chooseOption(new ArrayList<>(Arrays.asList("text", "database")));
 		if (choice.equals("text")) {
@@ -97,13 +106,10 @@ public class InventoryManagementSystem
 	}
 
 	/**
-	 * Runs the appropriate menu method based on the users input.
-	 * <p>
-	 * These options are generically represented using interfaces, so based on the {@link #storage} variables
-	 * declarations this will either be running CLI + text backend, or CLI + database backend
-	 * </p>
-	 * @param option an integer that represents what method the user wants to run
-	 * @see UserInterface#menuInputChoice
+	 * Allows the users menu selection to correctly orchestrate the text backend with the storage choice. These options
+	 * are defined here as it separates any responsibility for the backend from the UI. At this stage it seems unlikely
+	 * that is the most intuitive solution moving forwards.
+	 * @param option the option the user selected in the text user interface
 	 */
 	public static void menuOptions(int option) {
 		switch (option) {

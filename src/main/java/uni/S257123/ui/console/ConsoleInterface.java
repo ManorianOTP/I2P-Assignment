@@ -3,21 +3,21 @@ package uni.S257123.ui.console;
 import org.apache.commons.lang3.tuple.Pair;
 import uni.S257123.main.InventoryManagementSystem;
 import uni.S257123.models.CSV;
-import uni.S257123.ui.interfaces.UserInterface;
+import uni.S257123.storage.interfaces.Storage;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+
 /**
  * A console-based user interface for the Inventory Management System. This class
- * implements the {@code UserInterface} with methods that interact with the user
- * through the command line.
+ * implements methods that interact with the user through the command line.
  *
  * <p>All methods assume a console environment for input and output. Invalid inputs
  * are handled within each method, ensuring that the user is always prompted to enter
- * correct data as necessary.</p>
+ * correct data as necessary (primarily using {@link #chooseOption(List)}).</p>
  *
- * @see UserInterface
+ * @see uni.S257123.ui.graphical.GraphicalInterface
  */
 public class ConsoleInterface {
     
@@ -73,7 +73,27 @@ public class ConsoleInterface {
         return userInput;
     }
 
-    
+    /**
+     * Prompts for and collects input necessary to add a new record to the inventory.
+     * <p>
+     * Captures and validates user input for the following fields:
+     * <ol>
+     *    <li>An item description</li>
+     *     <li>The unit price</li>
+     *     <li>The quantity in stock.</li>
+     * </ol>
+     *
+     * The total price is calculated (unit price x quantity in stock) and a summary of the item is to be
+     * displayed for user confirmation before finalizing the addition.
+     * </p>
+     * @return a list of strings containing item details, where each element represents:
+     *         <ol>
+     *           <li>Item description</li>
+     *           <li>Unit price</li>
+     *           <li>Quantity in stock</li>
+     *           <li>Total price (calculated)</li>
+     *         </ol>
+     */
     public List<String> addRecordInput() {
         Scanner input = new Scanner(System.in);
 
@@ -113,7 +133,6 @@ public class ConsoleInterface {
         System.out.println("║ " + String.format("%-57s","Quantity in Stock: " + qtyInStock) + "║");
         System.out.println("║ " + String.format("%-57s","Total Price: " + totalPrice) + "║");
 
-        // User Confirmation
         System.out.print("║ " + String.format("%-57s","Do you want to add this item to the file? (yes/no): ") + "║");
         input.nextLine();  // Consume the remaining newline character from using input.nextInt() prior
         String confirmation = input.nextLine().trim().toLowerCase();
@@ -128,7 +147,12 @@ public class ConsoleInterface {
         }
     }
 
-    
+    /**
+     * Takes in a list of csv formatted rows, and returns the user's chosen details to update from a given row.
+     * @param csvs the rows of the file, stored as a list of {@link CSV} objects
+     * @param headers the headers of the associated rows ideally from {@link Storage#getHeaders(String)}
+     * @return the id of the chosen row, along with the property and value to be changed as a list of strings
+     */
     public List<String> updateRecordInput(List<CSV> csvs, List<String> headers) {
         Scanner scanner = new Scanner(System.in);
         List<String> output = new ArrayList<>();
@@ -141,6 +165,16 @@ public class ConsoleInterface {
         output.add(propertyValue.getRight());
 
         return output;
+    }
+
+    /**
+     * Takes in a list of csv formatted rows, and returns the user's chosen row id to delete.
+     * @param csvs the rows of the file, stored as a list of {@link CSV} objects
+     * @return the id of the chosen row
+     */
+    public String deleteRecordInput(List<CSV> csvs) {
+        Scanner scanner = new Scanner(System.in);
+        return GetUserChosenRecord(csvs, scanner);
     }
 
     /**
@@ -171,13 +205,10 @@ public class ConsoleInterface {
         return id;
     }
 
-    
-    public String deleteRecordInput(List<CSV> csvs) {
-        Scanner scanner = new Scanner(System.in);
-        return GetUserChosenRecord(csvs, scanner);
-    }
-
-    
+    /**
+     * Prompts the user to view transactions either from today or from all time, and returns their selection.
+     * @return A string of either today's date in the format "dd/MM/yyyy" or an empty string "" to represent all time
+     */
     public String viewTransactionsInput() {
         Scanner scanner = new Scanner(System.in);
 
@@ -196,7 +227,13 @@ public class ConsoleInterface {
         }
     }
 
-    
+    /**
+     * Prompts the user to input a property name from a list of properties, and what value they want to search that
+     * property for.
+     *
+     * @param headers A list of strings containing all possible parameters that can be searched
+     * @return A pair with the left holding the propertyName, and the right holding the value to search for
+     */
     public Pair<String, String> propertySearchInput(List<String> headers) {
         Scanner input = new Scanner(System.in);
         String propertyName = chooseOption(headers);
@@ -206,7 +243,11 @@ public class ConsoleInterface {
         return Pair.of(propertyName, value);
     }
 
-    
+    /**
+     * Takes in a list of options and continuously asks for an input until a valid option is chosen.
+     * @param options a string list of options to be selected from
+     * @return a string that matches a string in the options list
+     */
     public String chooseOption(List<String> options) {
         Scanner input = new Scanner(System.in);
         String option = "";
@@ -219,7 +260,10 @@ public class ConsoleInterface {
         return option;
     }
 
-    
+    /**
+     * Takes in a list of {@link CSV}'s, and displays all of them to the UI
+     * @param csvs a list of CSVs that you want to display to the user
+     */
     public void displayRecords(List<CSV> csvs) {
         for (CSV csv: csvs) {
             System.out.println("╠" + String.format("%-158s","").replace(" ", "═") + "╣");

@@ -22,12 +22,23 @@ import com.mongodb.client.FindIterable;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+/**
+ * A MongoDB based cloud storage system for the Inventory Management System. This class
+ * implements methods that interact with data stored within text files. An internet connection is required to use the
+ * methods in this class.
+ */
 public class DatabaseStorage implements Storage {
 
     private final MongoClient mongoClient;
     private final MongoDatabase database;
     public final Map<String, MongoCollection<Document>> csvDataSource;
 
+    /**
+     * A constructor such that when the database gets initialised, it automatically tries to connect.
+     * @implNote Currently there is a hardcoded username of dbUserName and password of dbUserPassword.
+     * This is obviously poor security, and if being used seriously a secrets manager should be used, or alternative
+     * login methods like OAuth tokens
+     */
     public DatabaseStorage() {
         String connectionString = "mongodb+srv://dbUserName:dbUserPassword@i2pdatabase.x8kre7j.mongodb.net/?retryWrites=true&w=majority";
         ServerApi serverApi = ServerApi.builder()
@@ -60,7 +71,7 @@ public class DatabaseStorage implements Storage {
 
     @Override
     public List<String> getHeaders(String target) {
-        return readContents(target).get(0).definedFields.stream().toList();
+        return readContents(target).getFirst().definedFields.stream().toList();
     }
 
     @Override
@@ -76,8 +87,8 @@ public class DatabaseStorage implements Storage {
             Document newDocument = new Document(map);
             csvDataSource.get(target).insertOne(newDocument);
 
-            List<CSV> file = searchRecord("items", Pair.of("description",parameters.get(0)));
-            parametersComplete.add((String) file.get(0).GetPropertyByName("id"));
+            List<CSV> file = searchRecord("items", Pair.of("description",parameters.getFirst()));
+            parametersComplete.add((String) file.getFirst().GetPropertyByName("id"));
             parametersComplete.addAll(parameters);
             addRecord(parametersComplete, "transactions", "added"); // adds a transaction record to the attempt
         } else {
@@ -104,7 +115,7 @@ public class DatabaseStorage implements Storage {
 
     @Override
     public void updateRecord(List<String> recordInfo) {
-        Bson filter = Filters.eq("_id", new ObjectId(recordInfo.get(0)));
+        Bson filter = Filters.eq("_id", new ObjectId(recordInfo.getFirst()));
         FindIterable<Document> foundDocuments =  csvDataSource.get("items").find(filter);
         Document documentToUpdate= foundDocuments.first();
         if (recordInfo.get(1).equals("description")) {
@@ -169,6 +180,8 @@ public class DatabaseStorage implements Storage {
 
     @Override
     public List<CSV> searchRecord(String target, Pair<String, String> propertyNameValuePair) {
+        // Due to the data being stored in types, a large number of hard coded values need to be compared to make sure
+        // comparisons can be done against numbers, or the varying types of ID fields
         Bson filter;
         if (propertyNameValuePair.getLeft().equals("id")) {
             if (propertyNameValuePair.getRight().isEmpty()) {
@@ -182,6 +195,8 @@ public class DatabaseStorage implements Storage {
         } else if (propertyNameValuePair.getLeft().equals("unitPrice") ||
                 propertyNameValuePair.getLeft().equals("qtyInStock") ||
                 propertyNameValuePair.getLeft().equals("totalPrice")) {
+            // This converts the searched data server side into strings before checking matches. Not performance optimal
+            // at a large scale, but okay for the time being.
             String queryString = String.format(
                     "{ $regexMatch: { input: { $toString: '$%s' }, regex: '.*%s.*' } }",
                     propertyNameValuePair.getLeft(),
@@ -217,11 +232,6 @@ public class DatabaseStorage implements Storage {
             list.add(new CSV(fieldValues, fieldNames));
         }
         return list;
-    }
-
-    @Override
-    public String generateID() {
-        return null;
     }
 
     @Override

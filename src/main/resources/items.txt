@@ -4,3 +4,5 @@ id,description,unitPrice,qtyInStock,totalPrice
 00005,Samsung,1000.0,150,100000.0
 00007,testSubmit,12.0,10,120.0
 00011,Item11,10.0,10,100.0
+00012,Another item,30.0,5,150.0
+00013,try delete me,45.0,60,2700.0

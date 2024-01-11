@@ -12,6 +12,10 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Pattern;
 
+/**
+ * A text file based storage system for the Inventory Management System. This class
+ * implements methods that interact with data stored within text files.
+ */
 public class TextStorage implements Storage {
     public final String itemsFilePath = "src/main/resources/items.txt";
     public final String transactionsFilePath = "src/main/resources/transactions.txt";
@@ -38,7 +42,7 @@ public class TextStorage implements Storage {
 
     @Override
     public List<String> getHeaders(String target)  {
-        return csvDataMap.get(target).get(0).definedFields.stream().toList();
+        return csvDataMap.get(target).getFirst().definedFields.stream().toList();
     }
 
     /**
@@ -250,10 +254,16 @@ public class TextStorage implements Storage {
         return output;
     }
 
-    @Override
+    /**
+     * Generates an ID by looking at the last ID in the items.txt file, and adding one to it.
+     * @return The ID formatted as a 5 character string filled with preceding zeros
+     * @throws RuntimeException If the ID surpasses 5 characters
+     * @implNote The RuntimeException thrown by this method is just to fit the strict definition set by the assigment
+     * as a proof of concept and can be freely removed if desired
+     */
     public String generateID() {
         List<CSV> itemsList = csvDataMap.get("items");
-        CSV lastRow = itemsList.get(itemsList.size() - 1);
+        CSV lastRow = itemsList.getLast();
 
         if (Integer.parseInt(lastRow.id) + 1 >= 100_000) {
             throw new RuntimeException("ID exceeds the maximum allowed value");
