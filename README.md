@@ -3,13 +3,14 @@
 <h4>Prerequisites:</h4>
 
 - Java Runtime Environment (JRE) - Developed with Version 21, lower versions may work but are untested
-- If you plan to use the database, ensure you have access to the cloud
+- If you plan to use the database, ensure you have access to the internet
 
 <h4> Steps:</h4>
 
 - Download the master branch, and ensure it's unzipped
-- Navigate via the appropriate CLI for your system to "I2P-Assignment\target\classes"
-- Run "java -cp . uni.S257123.main.InventoryManagementSystem"
+- Navigate via the appropriate CLI for your system to "I2P-Assignment\out"
+- Ensure the "src\main\resources" folder is there with items.txt, transactions.txt, and GUI.fxml
+- Run "java -jar I2P_Assignment_Maven-1.0-SNAPSHOT.jar"
 
 <h1>Notes:</h1>
 
